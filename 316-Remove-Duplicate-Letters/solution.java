@@ -1,40 +1,29 @@
 public class Solution {
+    // count all chars in string
+    private HashMap<Character, Integer> count = new HashMap();
+    // stack that keep track of result
+    private Stack<Character> stack = new Stack();
+    // set that synced with stack and used for deduplication
+    private HashSet<Character> set = new HashSet<>();
+
+
     public String removeDuplicateLetters(String s) {
-        Stack<Character> stack = new Stack();
-        HashMap<Character, Integer> map = new HashMap();
 
-        // build count map
-        for (int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
-            if (map.containsKey(c)) {
-                map.put(c, map.get(c) + 1);
-            } else {
-                map.put(s.charAt(i), 1);
-            }
-        }
+        // count all chars into a count
+        buildCountMap(s);
 
-        HashSet<Character> set = new HashSet<>();
-
+        // loop through all chars in string
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
 
             if (set.contains(c)) {
-                map.put(c, map.get(c) - 1);
+                count.put(c, count.get(c) - 1);
                 continue;
             }
 
-            while (!stack.isEmpty() && c <= stack.peek() && map.get(stack.peek()) > 1) {
-                char head = stack.peek();
-
-                stack.pop();
-                System.out.println("pop: " + head);
-                map.put(head, map.get(head) - 1);
-                System.out.println(head + " count: " + map.get(head));
-                set.remove(head);
-            }
+            cleanUpStack(c);
 
             stack.push(c);
-            System.out.println("stack push: " + c);
             set.add(c);
         }
 
@@ -44,5 +33,43 @@ public class Solution {
         }
 
         return sb.toString();
+    }
+
+
+    private void cleanUpStack(char c) {
+        while (shouldPopFromStack(c)) {
+            char head = stack.peek();
+
+            stack.pop();
+            count.put(head, count.get(head) - 1);
+            set.remove(head);
+        }
+    }
+
+
+    private boolean shouldPopFromStack(char c) {
+        if (stack.isEmpty())
+            return false;
+
+        if (stack.peek() < c)
+            return false;
+
+        if (count.get(stack.peek()) <= 1)
+            return false;
+
+        return true;
+    }
+
+    // count all chars into a count
+    private void buildCountMap(String s) {
+        // build count count
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (count.containsKey(c)) {
+                count.put(c, count.get(c) + 1);
+            } else {
+                count.put(s.charAt(i), 1);
+            }
+        }
     }
 }
