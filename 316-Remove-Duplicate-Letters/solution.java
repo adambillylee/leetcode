@@ -6,7 +6,7 @@ public class Solution {
         // build count map
         for (int i=0; i<s.length(); i++){
             if (map.containsKey(s.charAt(i))) {
-                map.get(s)++;
+                map.get(s.charAt(i))++;
             }else{
                 map.put(s.charAt(i), 1);
             }
