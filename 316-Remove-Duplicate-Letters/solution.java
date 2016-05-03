@@ -1,47 +1,48 @@
 public class Solution {
     public String removeDuplicateLetters(String s) {
-        Stack<Integer> stack = new Stack();
+        Stack<Character> stack = new Stack();
         HashMap<Character, Integer> map = new HashMap();
-        
+
         // build count map
-        for (int i=0; i<s.length(); i++){
-            if (map.containsKey(s.charAt(i))) {
-                map.get(s.charAt(i))++;
-            }else{
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (map.containsKey(c)) {
+                map.put(c, map.get(c) + 1);
+            } else {
                 map.put(s.charAt(i), 1);
             }
         }
-        
-        StringBuilder sb = new StringBuilder();
-        int i=0;
-        while (i < stack.length()) {
-            char c = s.charAt(c);
-            
-            if (stack.isEmpty()) {
-                System.out.println("stack empty, push: " + c);
-                stack.push(c);
-                i++;
+
+        HashSet<Character> set = new HashSet<>();
+
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+
+            if (set.contains(c)) {
+                map.put(c, map.get(c) - 1);
                 continue;
             }
-            
-            while(!stack.isEmpty() && stack.peak() <= c) {
-                char head = stack.pop();
-                int len = sb.length();
-                
-                if (map.get(head) == 1) {
-                    System.out.println("count=1, output: " + head);
-                    sb.append(len, head);
-                }else{
-                    map.get(head)--;
-                    System.out.println("count:" + head +"-- = " + map.get(head));
-                }
+
+            while (!stack.isEmpty() && c <= stack.peek() && map.get(stack.peek()) > 1) {
+                char head = stack.peek();
+
+                stack.pop();
+                System.out.println("pop: " + head);
+                map.put(head, map.get(head) - 1);
+                System.out.println(head + " count: " + map.get(head));
+                set.remove(head);
             }
-            
-            System.out.println("stack push: " + c);
+
             stack.push(c);
-            i++;
+            System.out.println("stack push: " + c);
+            set.add(c);
         }
-        
+
+        StringBuilder sb = new StringBuilder();
+        while (!stack.isEmpty()) {
+            sb.insert(0, stack.pop());
+        }
+
         return sb.toString();
     }
 }
