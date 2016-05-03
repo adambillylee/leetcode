@@ -8,6 +8,8 @@ public class TwoSum {
 
     // Find if there exists any pair of numbers which sum is equal to the value.
 	public boolean find(int value) {
+	    HashSet<Integer> set = new HashSet();
+	    
 	    for (int i : list) {
             if (set.contains(value - i)) {
 	            return true;
