@@ -16,23 +16,25 @@ public class Solution {
             int k = nums.length - 1;
 
             while (j < k) {
-                if (nums[i] + nums[j] + nums[k] == 0) {
+                int sum = nums[i] + nums[j] + nums[k];
+                
+                if (sum == 0) {
                     rst.add(Arrays.asList(nums[i], nums[j], nums[k]));
-                }
 
-                // if j is in dup sequence, move j to the last of dups < k
-                while (j + 1 < k && nums[j] == nums[j + 1])
+                    // if j is in dup sequence, move j to the last of dups < k
+                    while (j + 1 < k && nums[j] == nums[j + 1])
+                        j++;
+    
+                    // if j is in dup sequence, move k to the first of dups > j
+                    while (k - 1 < j && nums[k] == nums[k - 1])
+                        k--;
+                } else if (sum < 0) {
+                    // move j forward (to k / to non-dup element)
                     j++;
-
-                // if j is in dup sequence, move k to the first of dups > j
-                while (k - 1 < j && nums[k] == nums[k - 1])
+                }else{
+                    // move k backward (to j / to non-dup element)
                     k--;
-
-                // move j forward (to k / to non-dup element)
-                j++;
-
-                // move k backward (to j / to non-dup element)
-                k--;
+                }
             }
 
             i++;
