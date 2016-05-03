@@ -9,7 +9,7 @@ public class Solution {
 
         while (i < nums.length - 2) {
             // if i is in dep sequence, move i to last element
-            while (i - 1 > 0 && nums[i] == nums[i - 1])
+            while (i - 1 >= 0 && nums[i] == nums[i - 1])
                 continue;
 
             int j = i + 1;
