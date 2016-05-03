@@ -29,7 +29,7 @@ public class Solution {
                         k--;
                     
                     j++;
-                    j--;
+                    k--;
                 } else if (sum < 0) {
                     // move j forward (to k / to non-dup element)
                     j++;
