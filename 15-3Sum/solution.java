@@ -5,37 +5,39 @@ public class Solution {
 
         List<List<Integer>> rst = new ArrayList<List<Integer>>();
 
-        for (int i=0; i<nums.length; i++) {
-            // if i is in dep sequence, move i to last element
-            if (i - 1 >= 0 && nums[i] == nums[i - 1]) {
+        /**
+         * always move all cursors to last element of dup if possible
+         */
+        for (int left = 0; left < nums.length; left++) {
+            /**
+             * if this left is already handled, just skip it
+             */
+            if (left - 1 >= 0 && nums[left] == nums[left - 1])
                 continue;
-            }
 
-            int j = i + 1;
-            int k = nums.length - 1;
+            int mid = left + 1;
+            int right = nums.length - 1;
 
-            while (j < k) {
-                int sum = nums[i] + nums[j] + nums[k];
-                
+            while (mid < right) {
+                int sum = nums[left] + nums[mid] + nums[right];
+
                 if (sum == 0) {
-                    rst.add(Arrays.asList(nums[i], nums[j], nums[k]));
+                    rst.add(Arrays.asList(nums[left], nums[mid], nums[right]));
 
-                    // if j is in dup sequence, move j to the last of dups < k
-                    while (j + 1 < k && nums[j] == nums[j + 1])
-                        j++;
-    
-                    // if j is in dup sequence, move k to the first of dups > j
-                    while (k - 1 < j && nums[k] == nums[k - 1])
-                        k--;
-                    
-                    j++;
-                    k--;
+                    // if mid is on duplicate, move mid to as right as possible (<right)
+                    while (mid + 1 < right && nums[mid] == nums[mid + 1])
+                        mid++;
+
+                    // if right is on duplicate, move right to as leff as possible (>left)
+                    while (right - 1 > left && nums[right] == nums[right - 1])
+                        right--;
+
+                    mid++;
+                    right--;
                 } else if (sum < 0) {
-                    // move j forward (to k / to non-dup element)
-                    j++;
-                }else{
-                    // move k backward (to j / to non-dup element)
-                    k--;
+                    mid++;
+                } else {
+                    right--;
                 }
             }
         }
