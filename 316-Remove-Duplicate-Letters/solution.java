@@ -1,7 +1,7 @@
 public class Solution {
     public String removeDuplicateLetters(String s) {
         Stack<Integer> stack = new Stack();
-        HashMap<Integer, Integer> map = new HashMap();
+        HashMap<Character, Integer> map = new HashMap();
         
         // build count map
         for (int i=0; i<s.length(); i++){
