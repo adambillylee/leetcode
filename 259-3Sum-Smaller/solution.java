@@ -12,6 +12,11 @@ public class Solution {
                 int sum = nums[one] + nums[two] + nums[three];
                 
                 if (sum < target) {
+                    /**
+                     * because nums[one] + nums[two] + nums[three] < target
+                     * so if we replace three with any two between (two, three), it will work
+                     * there are total of (three -two) such threes can satisfy this condition
+                     */
                     count += three - two;
                     two++;
                 }else{
