@@ -16,13 +16,16 @@ public class Solution {
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
 
+            // dedup
             if (set.contains(c)) {
                 count.put(c, count.get(c) - 1);
                 continue;
             }
 
+            // clean up the stack before pushing new chars
             cleanUpStack(c);
 
+            // add new char into stack and sync the set
             stack.push(c);
             set.add(c);
         }
@@ -35,7 +38,7 @@ public class Solution {
         return sb.toString();
     }
 
-
+    // clean up the stack before pushing new chars
     private void cleanUpStack(char c) {
         while (shouldPopFromStack(c)) {
             char head = stack.peek();
@@ -46,14 +49,17 @@ public class Solution {
         }
     }
 
-
+    // shall I pop stack head or not?
     private boolean shouldPopFromStack(char c) {
+        // if stack is empty, do not pop
         if (stack.isEmpty())
             return false;
 
+        // if stack head is smaller, do not pop
         if (stack.peek() < c)
             return false;
 
+        // if head is the last char in string, do not pop
         if (count.get(stack.peek()) <= 1)
             return false;
 
