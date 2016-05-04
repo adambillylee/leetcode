@@ -29,7 +29,7 @@ public class Solution {
                         mid++;
 
                     // if right is on duplicate, move right to as leff as possible (>left)
-                    while (right - 1 > left && nums[right] == nums[right - 1])
+                    while (right - 1 > mid && nums[right] == nums[right - 1])
                         right--;
 
                     mid++;
