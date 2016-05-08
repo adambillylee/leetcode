@@ -1,6 +1,5 @@
 public class Solution {
-    public List<List<String>> findLadders(String beginWord, String endWord, Set<String> wordList) {
-            int depth = 1;
+    int depth = 1;
 
     public List<List<String>> findLadders(String beginWord, String endWord, Set<String> wordList) {
         List<List<String>> rst = new ArrayList<>();
@@ -72,6 +71,5 @@ public class Solution {
             return false;
 
         return true;
-    }
     }
 }
