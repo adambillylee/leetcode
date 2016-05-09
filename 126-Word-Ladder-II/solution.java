@@ -9,8 +9,12 @@ public class Solution {
 
             if (rst.size() > 0)
                 return rst;
-            else
+            else{
+                if (depth > maxDepth)
+                    return rst;
+                
                 depth++;
+            }
         }
     }
 
