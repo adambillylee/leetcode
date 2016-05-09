@@ -14,7 +14,7 @@ public class Solution {
                 return false;
             }
         } else {
-            if (p.charAt(indP) != s.charAt(indS) && p.charAt(indP) != '.') {
+            if (indS < s.length() && p.charAt(indP) != s.charAt(indS) && p.charAt(indP) != '.') {
                 return helper(s, p, indS, indP + 2);
             } else {
                 int i = 1;
