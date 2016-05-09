@@ -23,6 +23,8 @@ public class Solution {
 
                     if (rst)
                         return true;
+
+                    i++;
                 }
 
                 if (helper(s, p, indS + i, indP + 2))
@@ -34,11 +36,11 @@ public class Solution {
     }
 
     private boolean shouldContinueMatching(String s, String p, int indS, int indP, int i) {
-        if (indS + i > s.length())
-            return false;
-
         if (p.charAt(indP) == '.')
             return true;
+
+        if (indS + i > s.length())
+            return false;
 
         if (p.charAt(indP) != s.charAt(indS + i))
             return false;
