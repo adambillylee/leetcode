@@ -1,5 +1,6 @@
 public class Solution {
     int depth = 1;
+    final int maxDepth = 15;
 
     public List<List<String>> findLadders(String beginWord, String endWord, Set<String> wordList) {
         List<List<String>> rst = new ArrayList<>();
