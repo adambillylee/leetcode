@@ -1,49 +1,85 @@
 public class Solution {
-    int depth = 1;
-    final int maxDepth = 15;
+    int maxDist = 1;
+    boolean foundEnd = false;
+    HashMap<String, HashSet<String>> reverseMap = new HashMap<>();
+    HashMap<String, Integer> distance = new HashMap<>();
 
     public List<List<String>> findLadders(String beginWord, String endWord, Set<String> wordList) {
         List<List<String>> rst = new ArrayList<>();
 
-        while (true) {
-            helper(rst, beginWord, endWord, new ArrayList<String>(), new HashSet<String>(), wordList, 1);
+        bfs(beginWord, endWord, new HashSet<>(), wordList);
 
-            if (rst.size() > 0)
-                return rst;
-            else{
-                if (depth > maxDepth)
-                    return rst;
-                
-                depth++;
+        dfs(rst, endWord, beginWord, new ArrayList<>(), new HashSet<>(), maxDist);
+
+        return rst;
+    }
+
+    private void bfs(String beginWord, String endWord, Set<String> visited, Set<String> wordList) {
+        Queue<String> queue = new LinkedList<>();
+        queue.offer(beginWord);
+
+        while (!queue.isEmpty()) {
+            int len = queue.size();
+            for (int i = 0; i < len; i++) {
+                String curr = queue.poll();
+
+                if (visited.contains(curr))
+                    continue;
+
+                if (curr.equals(endWord)) {
+                    foundEnd = true;
+                }
+
+                distance.put(curr, maxDist);
+                visited.add(curr);
+
+                List<String> expended = expend(curr, endWord, visited, wordList);
+
+                for (String next : expended) {
+                    if (reverseMap.get(next) == null) {
+                        reverseMap.put(next, new HashSet<>());
+                    }
+
+                    reverseMap.get(next).add(curr);
+                }
+                queue.addAll(expended);
             }
+
+            if (!foundEnd)
+                maxDist++;
         }
     }
 
-    private void helper(List rst, String curr, String endWord, List<String> list, Set<String> visited, Set<String> wordList, int depth) {
-        if (depth > this.depth) {
-            if (curr.equals(endWord)) {
-                list.add(curr);
-                rst.add(new ArrayList(list));
-                list.remove(list.size()-1);
-            }
+    private void dfs(List rst, String curr, String beginWord, List<String> list, Set<String> visited, int depth) {
+        if (curr == beginWord) {
+            list.add(curr);
+            Collections.reverse(list);
+            rst.add(new ArrayList<>(list));
+            Collections.reverse(list);
+            list.remove(list.size() - 1);
 
             return;
         }
 
-        List<String> expended = expend(curr, endWord, visited, wordList);
+        list.add(curr);
+        visited.add(curr);
 
-        for (String ele : expended) {
-            list.add(curr);
-            visited.add(curr);
-            helper(rst, ele, endWord, list, visited, wordList, depth + 1);
-            list.remove(list.size() - 1);
-            visited.remove(curr);
+        Set<String> expended = reverseMap.get(curr);
+
+        if (expended != null) {
+            for (String back : expended) {
+                if (distance.get(back) == depth - 1) {
+                    dfs(rst, back, beginWord, list, visited, depth - 1);
+                }
+            }
         }
+
+        list.remove(curr);
+        visited.remove(curr);
     }
 
     private List<String> expend(String curr, String endWord, Set<String> visited, Set<String> wordList) {
         List<String> rst = new ArrayList<>();
-
 
         for (int i = 0; i < curr.length(); i++) {
             for (int j = 0; j < 26; j++) {
@@ -57,8 +93,9 @@ public class Solution {
 
                 String replaced = String.valueOf(charArray);
 
-                if (isValidExpendWord(endWord, visited, wordList, replaced))
+                if (isValidExpendWord(endWord, visited, wordList, replaced)) {
                     rst.add(replaced);
+                }
             }
         }
 
@@ -66,8 +103,9 @@ public class Solution {
     }
 
     private boolean isValidExpendWord(String endWord, Set<String> visited, Set<String> wordList, String replaced) {
-        if (replaced.equals(endWord))
+        if (replaced.equals(endWord)) {
             return true;
+        }
 
         if (visited.contains(replaced))
             return false;
