@@ -4,8 +4,8 @@ public class Solution {
     }
 
     private boolean helper(String s, String p, int indS, int indP) {
-        if (indP >= p.length() - 1)
-            return indS == s.length() - 1;
+        if (indP >= p.length())
+            return indS == s.length();
 
         if (indP + 1 < p.length() && p.charAt(indP + 1) != '*') {
             if (p.charAt(indP) == s.charAt(indS)) {
@@ -14,11 +14,11 @@ public class Solution {
                 return false;
             }
         } else {
-            if (indS < s.length() && p.charAt(indP) != s.charAt(indS) && p.charAt(indP) != '.') {
+            if (!match(s, p, indS, indP)) {
                 return helper(s, p, indS, indP + 2);
             } else {
-                int i = 1;
-                while (shouldContinueMatching(s, p, indS, indP, i)) {
+                int i = 0;
+                while (shouldMatchNextCharInS(s, p, indS, indP, i)) {
                     boolean rst = helper(s, p, indS + i, indP + 2);
 
                     if (rst)
@@ -35,14 +35,24 @@ public class Solution {
         }
     }
 
-    private boolean shouldContinueMatching(String s, String p, int indS, int indP, int i) {
+    private boolean match(String s, String p, int indS, int indP) {
+        if (indS < s.length() && p.charAt(indP) == s.charAt(indS))
+            return true;
+
         if (p.charAt(indP) == '.')
             return true;
 
-        if (indS + i > s.length())
+        return false;
+    }
+
+    private boolean shouldMatchNextCharInS(String s, String p, int indS, int indP, int i) {
+        if (p.charAt(indP) == '.')
+            return true;
+
+        if (indS + i >= s.length())
             return false;
 
-        if (p.charAt(indP) != s.charAt(indS + i))
+        if (s.charAt(indS + i) != p.charAt(indP))
             return false;
 
         return true;
