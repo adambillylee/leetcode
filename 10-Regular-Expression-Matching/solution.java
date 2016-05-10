@@ -7,39 +7,22 @@ public class Solution {
         if (indP == p.length())
             return indS == s.length();
 
-        // if (indP + 1 >= p.length()) {
-        //     if (!matchFirst(s, p, indS, indP))
-        //         return false;
-        //     else
-        //         return helper(s, p, indS+1, indP+1);
-        // }
-
         if (indP + 1 >= p.length() || p.charAt(indP + 1) != '*') {
             if (!matchFirst(s, p, indS, indP))
                 return false;
             else
                 return helper(s, p, indS + 1, indP + 1);
         } else {
-            int index = indS;
-            for (; index < s.length() && matchFirst(s, p, index, indP); index++) {
-                if (helper(s, p, index, indP + 2))
-                    return true;
 
-            }
-            if (helper(s, p, index, indP+2)){
+            if (helper(s, p, indS, indP + 2))
                 return true;
-            }
-            return false;
 
-//            if (helper(s, p, indS, indP + 2))
-//                return true;
-//
-//            while (matchFirst(s, p, indS, indP)) {
-//                if (helper(s, p, ++indS, indP + 2))
-//                    return true;
-//            }
-//
-//            return false;
+            while (matchFirst(s, p, indS, indP)) {
+                if (helper(s, p, ++indS, indP + 2))
+                    return true;
+            }
+
+            return false;
         }
     }
 
