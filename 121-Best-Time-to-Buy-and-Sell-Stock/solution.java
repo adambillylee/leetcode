@@ -8,7 +8,7 @@ public class Solution {
         
         for (int i=1; i<prices.length; i++) {
             int profit = prices[i] - maxPriceBefore;
-            minPriceBefore = Math.min(maxPriceBefore, prices[i]);
+            minPriceBefore = Math.min(minPriceBefore, prices[i]);
             maxProfit = Math.max(maxProfit, profit);
         }
         
