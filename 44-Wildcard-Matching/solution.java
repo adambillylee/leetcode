@@ -42,12 +42,12 @@ public class Solution {
                 
             while (match(s, p, indS, indP)) {
                 if (helper(s, p, ++indS, indP+1)) {
-                    dp[indS][indP] = 1;
+                    dp[indS-1][indP] = 1;
                     return true;
                 }
             }
             
-            dp[indS][indP] = 0;
+            dp[indS-1][indP] = 0;
             return false;
         }
     }
