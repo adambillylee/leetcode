@@ -3,7 +3,7 @@ public class Solution {
         int maxProfit = Integer.MIN_VALUE;
         int maxPriceBefore = prices[0];
         
-        for (int i=1; i<prices.length(); i++) {
+        for (int i=1; i<prices.length; i++) {
             int profit = maxPriceBefore - prices[i];
             maxPriceBefore = Math.max(maxPriceBefore, prices[i]);
             
