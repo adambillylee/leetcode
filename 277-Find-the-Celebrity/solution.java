@@ -11,12 +11,13 @@ public class Solution extends Relation {
         }
         
         int i=0;
-        for (; i<n; i++) {
-            if (i != celebrity)
-                continue;
-                
-            if (!(knows(i, celebrity) || knows(celebrity, i))
+        for (i<n) {
+            if (i != celebrity || (knows(i, celebrity) && !knows(celebrity, i)))
+                System.out.println(i);
+            else
                 break;
+                
+            i++;
         }
         
         if (i == n)
