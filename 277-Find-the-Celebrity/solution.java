@@ -12,7 +12,7 @@ public class Solution extends Relation {
         
         int i=0;
         for (; i<n; i++) {
-            if (i != celebrity))
+            if (i != celebrity)
                 continue;
                 
             if (!(knows(i, celebrity) || knows(celebrity, i))
