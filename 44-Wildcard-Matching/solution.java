@@ -1,79 +1,45 @@
 public class Solution {
-    // int dp[][];
-
     public boolean isMatch(String s, String p) {
-        if (s == null || p == null ||
-                s.length() == 0 || p.length() == 0)
+        if (s == null || p == null
+                || s.length() == 0 || p.length() == 0)
             return false;
 
-        // dp = new int[s.length()][p.length()];
-        // for (int i = 0; i < s.length(); i++) {
-        //     for (int j = 0; j < p.length(); j++) {
-        //         dp[i][j] = -1;
-        //     }
-        // }
+        // is ith in s is matches jth in p?
+        dp[0][0] = true;
+        for (int i=1; i<=m; i++) {
+            dp[i][0] = false;
+        }
 
-
-        return helper(s, p, 0, 0);
-    }
-
-    public boolean helper(String s, String p, int indS, int indP) {
-        if (indP == p.length())
-            return indS == s.length();
-
-        if (indS >= s.length())
-            return false;
-
-        // if (dp[indS][indP] == 1)
-        //     return true;
-
-        // if (dp[indS][indP] == 0)
-        //     return false;
-
-        if (p.charAt(indP) != '*') {
-            if (!match(s, p, indS, indP)) {
-                // dp[indS][indP] = 0;
-                return false;
+        dp[0][0] = true;
+        for (int j = 1; j <= p.length(); j++) {
+            if (p.charAt(j - 1) == '*') {
+                dp[0][j] = true;
             } else {
-                return helper(s, p, indS + 1, indP + 1);
+                break;
             }
-        } else {
-            if (helper(s, p, indS, indP + 1)) {
-                // dp[indS][indP] = 1;
-                return true;
-            }
+        }
 
-            int i=1;
-            while (match(s, p, indS+i, indP)) {
-                if (helper(s, p, indS+i, indP + 1)) {
-                    // dp[indS][indP] = 1;
-                    return true;
+
+        for (int i = 0; i <= s.length(); i++) {
+            for (int j = 0; j <= p.length(); j++) {
+                if (i == 0 || j == 0)
+                    continue;
+
+                char currS = s.charAt(i - 1);
+                char currP = p.charAt(j - 1);
+
+                if (currP != '*') {
+                    if (currS != currP && currP != '?') {
+                        dp[i][j] = false;
+                    } else {
+                        dp[i][j] = dp[i - 1][j - 1];
+                    }
+                } else {
+                    dp[i][j] = dp[i][j - 1] || dp[i - 1][j];
                 }
-                i++;
             }
-
-            // dp[indS][indP] = 0;
-            return false;
-        }
-    }
-
-    private boolean match(String s, String p, int indS, int indP) {
-        if (indS >= s.length()) {
-            return false;
         }
 
-        if (p.charAt(indP) == s.charAt(indS)) {
-            return true;
-        }
-
-        if (p.charAt(indP) == '?') {
-            return true;
-        }
-
-        if (p.charAt(indP) == '*') {
-            return true;
-        }
-
-        return false;
+        return dp[s.length()][p.length()];
     }
 }
