@@ -5,7 +5,7 @@ public class Solution {
         if (s == null || p == null || s.length() == 0 || p.length() == 0)
             return false;
         
-        dp[][] = new boolean[s.length()][p.length()];
+        dp = new boolean[s.length()][p.length()];
         for (int i=0; i<s.length(); i++) {
             for (int j=0; j<p.length(); j++) {
                 dp[i][j] = -1;
