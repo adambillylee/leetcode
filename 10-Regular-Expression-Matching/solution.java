@@ -4,57 +4,49 @@ public class Solution {
     }
 
     private boolean helper(String s, String p, int indS, int indP) {
-        if (indP >= p.length())
+        if (indP == p.length())
             return indS == s.length();
 
-        if (indP + 1 < p.length() && p.charAt(indP + 1) != '*') {
-            if (p.charAt(indP) == s.charAt(indS)) {
-                return helper(s, p, indS + 1, indP + 1);
-            } else {
+        if (indP + 1 >= p.length()) {
+            if (!matchFirst(s, p, indS, indP))
                 return false;
-            }
+            else
+                return helper(s, p, indS+1, indP+1);
+        }
+
+        if (p.charAt(indP + 1) != '*') {
+            if (!matchFirst(s, p, indS, indP))
+                return false;
+            else
+                return helper(s, p, indS + 1, indP + 1);
         } else {
-            if (!match(s, p, indS, indP)) {
-                return helper(s, p, indS, indP + 2);
-            } else {
-                int i = 0;
-                while (shouldMatchNextCharInS(s, p, indS, indP, i)) {
-                    boolean rst = helper(s, p, indS + i, indP + 2);
-
-                    if (rst)
-                        return true;
-
-                    i++;
-                }
-
-                if (helper(s, p, indS + i, indP + 2))
+            int index = indS;
+            for (; index < s.length() && matchFirst(s, p, index, indP); index++) {
+                if (helper(s, p, index, indP + 2))
                     return true;
-                else
-                    return false;
+
             }
+            if (helper(s, p, index, indP+2)){
+                return true;
+            }
+            return false;
+
+//            if (helper(s, p, indS, indP + 2))
+//                return true;
+//
+//            while (matchFirst(s, p, indS, indP)) {
+//                if (helper(s, p, ++indS, indP + 2))
+//                    return true;
+//            }
+//
+//            return false;
         }
     }
 
-    private boolean match(String s, String p, int indS, int indP) {
-        if (indS < s.length() && p.charAt(indP) == s.charAt(indS))
-            return true;
-
-        if (p.charAt(indP) == '.')
-            return true;
-
-        return false;
-    }
-
-    private boolean shouldMatchNextCharInS(String s, String p, int indS, int indP, int i) {
-        if (p.charAt(indP) == '.')
-            return true;
-
-        if (indS + i >= s.length())
+    private boolean matchFirst(String s, String p, int indS, int indP) {
+        if (indS >= s.length())
             return false;
 
-        if (s.charAt(indS + i) != p.charAt(indP))
-            return false;
-
-        return true;
+        return (s.charAt(indS) == p.charAt(indP)) || (p.charAt(indP) == '.');
     }
 }
