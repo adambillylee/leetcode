@@ -20,7 +20,10 @@ public class Solution {
     public boolean helper(String s, String p, int indS, int indP) {
         if (indP == p.length())
             return indS == s.length();
-            
+          
+        if (indS >= s.length())
+            return false;
+           
         if (dp[indS][indP] == 1)
             return true;
             
