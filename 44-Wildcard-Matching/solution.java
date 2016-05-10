@@ -5,6 +5,8 @@ public class Solution {
             return false;
 
         // is ith in s is matches jth in p?
+        boolean dp[][] = new boolean[s.length() + 1][p.length() + 1];
+        
         dp[0][0] = true;
         for (int i=1; i<=m; i++) {
             dp[i][0] = false;
