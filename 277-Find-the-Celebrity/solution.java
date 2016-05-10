@@ -11,13 +11,12 @@ public class Solution extends Relation {
         }
         
         int i=0;
-        while (i<n) {
-            if (i != celebrity || (knows(i, celebrity) && !knows(celebrity, i)))
+        for (; i<n; i++) {
+            if (i != celebrity))
                 continue;
-            else
-                break;
                 
-            i++;
+            if (!(knows(i, celebrity) || knows(celebrity, i))
+                break;
         }
         
         if (i == n)
