@@ -7,7 +7,7 @@ public class Solution {
             if (prices[i] > boughtPrice) {
                 profit += prices[i] - boughtPrice;
             }else{
-                boughtPrice = price[i];
+                boughtPrice = prices[i];
             }
         }
         
