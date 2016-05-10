@@ -7,14 +7,14 @@ public class Solution {
         if (indP == p.length())
             return indS == s.length();
 
-        if (indP + 1 >= p.length()) {
-            if (!matchFirst(s, p, indS, indP))
-                return false;
-            else
-                return helper(s, p, indS+1, indP+1);
-        }
+        // if (indP + 1 >= p.length()) {
+        //     if (!matchFirst(s, p, indS, indP))
+        //         return false;
+        //     else
+        //         return helper(s, p, indS+1, indP+1);
+        // }
 
-        if (p.charAt(indP + 1) != '*') {
+        if (indP + 1 >= p.length() || p.charAt(indP + 1) != '*') {
             if (!matchFirst(s, p, indS, indP))
                 return false;
             else
