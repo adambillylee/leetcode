@@ -2,20 +2,20 @@ public class Solution {
     public List<List<Integer>> combine(int n, int k) {
         List<List<Integer>> rst = new ArrayList();
         
-        helper(rst, new ArrayList<Integer>(), 0, n, k);
+        helper(rst, new ArrayList<Integer>(), 1, n, k);
         
         return rst;
     }
     
     public void helper(List<List<Integer>>rst , List<Integer> list, int index, int n, int k) {
-        if (list.length() == k) {
+        if (list.size() = k) {
             rst.add(new ArrayList(list));
             return;
         }
         
-        for (int i = index+1; i<n; i++) {
+        for (int i = index; i<=n; i++) {
             list.add(i);
-            helper(rst, list, i+1, n, k);
+            helper(rst, list, i+1, n, k-1);
             list.remove(list.size()-1);
         }
     }
