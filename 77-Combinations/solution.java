@@ -1,18 +1,22 @@
 public class Solution {
- public static List<List<Integer>> combine(int n, int k) {
-        List<List<Integer>> combs = new ArrayList<List<Integer>>();
-        combine(combs, new ArrayList<Integer>(), 1, n, k);
-        return combs;
+    public List<List<Integer>> combine(int n, int k) {
+        List<List<Integer>> rst = new ArrayList();
+
+        helper(rst, new ArrayList<>(), 1, n, k);
+
+        return rst;
     }
-    public static void combine(List<List<Integer>> combs, List<Integer> comb, int start, int n, int k) {
-        if(k==0) {
-            combs.add(new ArrayList<Integer>(comb));
+
+    private void helper(List<List<Integer>> rst, List<Integer> list, int index, int n, int k) {
+        if (k == 0) {
+            rst.add(new ArrayList(list));
             return;
         }
-        for(int i=start;i<=n;i++) {
-            comb.add(i);
-            combine(combs, comb, i+1, n, k-1);
-            comb.remove(comb.size()-1);
+
+        for (int i = index; i <= n; i++) {
+            list.add(i);
+            helper(rst, list, i + 1, n, k - 1);
+            list.remove(list.size() - 1);
         }
     }
 }
