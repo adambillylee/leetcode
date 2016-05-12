@@ -30,7 +30,7 @@ public class Solution {
                 i++;
                 k++;
             }else{
-                nums1[k] = tmp[j];
+                nums1[k] = nums2[j];
                 j++;
                 k++;
             }
