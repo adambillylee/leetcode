@@ -12,27 +12,19 @@ public class Solution {
         
         while (k < m+n) {
             if (i == m){
-                nums1[k] = nums2[j];
-                j++;
-                k++;
+                nums1[k++] = nums2[j++];
                 continue;
             }
             
             if (j == n) {
-                nums1[k] = tmp[i];
-                i++;
-                k++;
+                nums1[k++] = tmp[i++];
                 continue;
             }
             
             if (tmp[i]<nums2[j]) {
-                nums1[k] = tmp[i];
-                i++;
-                k++;
+                nums1[k++] = tmp[i++];
             }else{
-                nums1[k] = nums2[j];
-                j++;
-                k++;
+                nums1[k++] = nums2[j++];
             }
         }
     }
