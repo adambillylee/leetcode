@@ -1,10 +1,10 @@
 public class Solution {
     public int nthUglyNumber(int n) {
         // create an array list of ugly numbers
-        ArrayList<Long> rst = new ArrayList<Long>();
+        ArrayList<Integer> rst = new ArrayList<Integer>();
 
         // initialization: add 1 into rst
-        rst.add(new Long(1));
+        rst.add(1);
 
         /**
          * create three pointers in rst
