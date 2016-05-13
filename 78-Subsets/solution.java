@@ -5,6 +5,8 @@ public class Solution {
         if (nums.length == 0)
             return rst;
             
+        Arrays.sort(nums);
+            
         helper(rst, new ArrayList<Integer>(), nums, 0);
         
         return rst;
@@ -16,14 +18,12 @@ public class Solution {
             return;
         }
         
-        for (int i=index; i<nums.length; i++) {
-            // add current element
-            list.add(nums[i]);
-            helper(rst, list, nums, index+1);
-            list.remove(list.size()-1);
-            
-            // not add current element
-            helper(rst, list, nums, index+1);
-        }
+        // add current element
+        list.add(nums[index]);
+        helper(rst, list, nums, index+1);
+        list.remove(list.size()-1);
+        
+        // not add current element
+        helper(rst, list, nums, index+1);
     }
 }
