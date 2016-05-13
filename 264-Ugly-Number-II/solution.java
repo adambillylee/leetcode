@@ -25,9 +25,9 @@ public class Solution {
              * could be used in min comparison next time.
              * The other cursor will stay in their previous min position, wait for their multiply to be the new min
              */
-            Long e2 = rst.get(curr2) * 2;
-            Long e3 = rst.get(curr3) * 3;
-            Long e5 = rst.get(curr5) * 5;
+            int e2 = rst.get(curr2) * 2;
+            int e3 = rst.get(curr3) * 3;
+            int e5 = rst.get(curr5) * 5;
 
             // pick min of 3 new multiplies to be result ugly number
             min = Math.min(Math.min(e2,e3),e5);
