@@ -1,37 +1,34 @@
 public class Solution {
-    public List<String> generateAbbrevihttps://leetcode.com/discuss/questions/oj/generalized-abbreviationations(String word) {
+    public List<String> generateAbbreviations(String word) {
         List<String> rst = new ArrayList<>();
 
-        if (word == null || word.length() == 0)
+        if (word.length() == 0) {
+            rst.add("");
             return rst;
+        }
 
-        helper(rst, word, 0, 0, new StringBuilder());
+        helper(rst, word, 0, 0, "");
 
         return rst;
     }
 
-    private void helper(List<String> rst, String word, int index, int count, StringBuilder sb) {
+    private void helper(List<String> rst, String word, int index, int count, String curr) {
         if (index == word.length()) {
             if (count > 0) {
-                sb.append(count);
-                rst.add(sb.toString());
-                sb.deleteCharAt(sb.length()-1);
+                rst.add(curr + count);
             } else {
-                rst.add(sb.toString());
+                rst.add(curr);
             }
             return;
         }
 
-        int len = sb.length();
-
-        helper(rst, word, index + 1, count + 1, sb);
+        helper(rst, word, index + 1, count + 1, curr);
 
         if (count > 0) {
-            helper(rst, word, index + 1, 0, sb.append(count).append(word.charAt(index)));
+            helper(rst, word, index + 1, 0, curr + count + word.charAt(index));
         } else {
-            helper(rst, word, index + 1, 0, sb.append(word.charAt(index)));
+            helper(rst, word, index + 1, 0, curr + word.charAt(index));
         }
 
-        sb.setLength(len);
     }
 }
