@@ -10,7 +10,7 @@ public class Solution {
         return rst;
     }
     
-    public void helper(List<List<Integer> rst, List<Integer> list, int[] nums, int index) {
+    public void helper(List<List<Integer>> rst, List<Integer> list, int[] nums, int index) {
         if (index == nums.length) {
             rst.add(new ArrayList(list));
             return;
