@@ -2,7 +2,7 @@ public class Solution {
     public List<List<Integer>> subsets(int[] nums) {
         List<Integer> rst = new ArrayList<Integer>();
         
-        if (nums.size == 0)
+        if (nums.length == 0)
             return rst;
             
         helper(rst, new ArrayList<Integer>(), nums, 0);
