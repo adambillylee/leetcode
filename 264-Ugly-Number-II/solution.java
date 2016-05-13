@@ -16,7 +16,7 @@ public class Solution {
 
         int min = 1;
 
-        while(rst.size()<=n) {
+        while(rst.size()<n) {
             /**
              * considering 3 currs represent 3 sequences
              * each cursor pointed to number in rst to be used as base to multiply 2,3 or 5
@@ -33,13 +33,13 @@ public class Solution {
             min = Math.min(Math.min(e2,e3),e5);
 
             // move cursor forward so new multiplies are generated based on previous min
-            if(min.equals(e2))
+            if(min == e2)
                 curr2 ++;
 
-            if(min.equals(e3))
+            if(min == e3)
                 curr3++;
 
-            if(min.equals(e5))
+            if(min == e5)
                 curr5++;
 
             // add min into rst last in order to avoid screw ups of indexes
