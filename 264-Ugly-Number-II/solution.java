@@ -16,10 +16,10 @@ public class Solution {
 
         int min = 1;
 
-        while(rst.size()<=k) {
+        while(rst.size()<=n) {
             /**
              * considering 3 currs represent 3 sequences
-             * each cursor pointed to number in rst to be used as base to multiply 3,5 or 7
+             * each cursor pointed to number in rst to be used as base to multiply 2,3 or 5
              * in each iteration the min number is the min possible ugly number within 3 sequences
              * after that cursor is used, move that cursor front by 1 so new ugly number in that seq
              * could be used in min comparison next time.
