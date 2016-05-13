@@ -33,13 +33,13 @@ public class Solution {
             min = Math.min(Math.min(e2,e3),e5);
 
             // move cursor forward so new multiplies are generated based on previous min
-            if(min.equals(e3))
+            if(min.equals(e2))
                 curr2 ++;
 
-            if(min.equals(e5))
+            if(min.equals(e3))
                 curr3++;
 
-            if(min.equals(e7))
+            if(min.equals(e5))
                 curr5++;
 
             // add min into rst last in order to avoid screw ups of indexes
