@@ -3,14 +3,17 @@ public class Solution {
         int minDis = Integer.MAX_VALUE;
 
         int last2 = -1;
-        for (int i = 0; i < word1.length(); i++) {
+        for (int i = 0; i < words.length; i++) {
             String word = words[i];
+
+            if (word.equals(word1) && last2 != -1) {
+                int currDis = Math.abs(i - last2);
+                if (currDis > 0)
+                    minDis = Math.min(currDis, minDis);
+            }
 
             if (word.equals(word2)) {
                 last2 = i;
-            } else if (word.equals(word1)) {
-                int currDis = Math.abs(i - last2);
-                minDis = Math.min(currDis, minDis);
             }
         }
 
@@ -18,12 +21,16 @@ public class Solution {
         for (int i = words.length - 1; i >= 0; i--) {
             String word = words[i];
 
+            if (word.equals(word1) && last2 != words.length) {
+                int currDis = Math.abs(last2 - i);
+                if (currDis > 0)
+                    minDis = Math.min(currDis, minDis);
+            }
+
             if (word.equals(word2)) {
                 last2 = i;
-            } else if (word.equals(word1)) {
-                int currDis = Math.abs(last2 - i);
-                minDis = Math.min(currDis, minDis);
             }
+
         }
 
         return minDis;
