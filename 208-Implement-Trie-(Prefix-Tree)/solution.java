@@ -41,6 +41,8 @@ public class Trie {
             
             if (curr.next[index] == null)
                 return false;
+                
+            curr = curr.next[index];
         }
          
         return curr.word.equals(word);
@@ -57,6 +59,8 @@ public class Trie {
             
             if (curr.next[index] == null)
                 return false;
+                
+            curr = curr.next[index];
         }
         
         return true;
