@@ -24,7 +24,7 @@ public class WordDictionary {
             
             int index;
             if (c == '.') {
-                index = 27;
+                index = 26;
             }else{
                 index = c - 'a';
             }
@@ -40,25 +40,33 @@ public class WordDictionary {
     // Returns if the word is in the data structure. A word could
     // contain the dot character '.' to represent any one letter.
     public boolean search(String word) {
+        return DFS(word, root);
+    }
+    
+    private boolean DFS(String word, TrieNode root) {
         TrieNode curr = root;
 
         for (int i=0; i<word.length(); i++) {
             char c = word.charAt(i);
             
-            int index;
-            if (c == '.') {
-                index = 27;
+            if (c != '.') {
+                int index = c - 'a';
+                
+                if (curr.next[index] == null)
+                    return false;
+    
+                curr = curr.next[index];
             }else{
-                index = c - 'a';
+                for (TrieNode tmp : curr.next) {
+                    if (tmp != null && DFS(word.subString(i), curr))
+                        return true;
+                    else
+                        return false;
+                }
             }
-
-            if (curr.next[index] == null)
-                return false;
-
-            curr = curr.next[index];
         }
-
-        return curr.word != null && curr.word.equals(word);
+        
+        return curr.word != null;        
     }
 }
 
