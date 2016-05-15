@@ -26,7 +26,7 @@ public class Trie {
             if (curr.next[index] == null)
                 curr.next[index] = new TrieNode();
                 
-            curr = curr.next(index);
+            curr = curr.next[index];
         }
         curr.word = word;
     }
