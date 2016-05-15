@@ -6,17 +6,17 @@ public class Solution {
         if (needle.isEmpty())
             return 0;
         
-        for (int i=0; i<haystack.length(); i++) {
-            for (int j=0; j<= haystack.length() - needle.length(); j++) {
-                if (i+j > haystack.length())
+        int j = 0;    
+        for (int i=0; i<heystack.length(); i++) {
+            while (i+needle.length() < heystack.length() && heystack.charAt(i+j) == needle.charAt(j)) {
+                if (j >= needle.length())
                     continue;
                 
-                if (haystack.charAt(i) != needle.charAt(j))
-                    continue;
-                    
-                if (j == needle.length()-1)
-                    return i;
+                j++;
             }
+            
+            if (j == needle.length())
+                return i;
         }
         
         return -1;
