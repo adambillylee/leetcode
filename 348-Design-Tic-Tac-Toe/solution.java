@@ -7,7 +7,7 @@ public class TicTacToe {
     /**
      * Initialize your data structure here.
      */
-    public TicTacToeO1(int n) {
+    public TicTacToe(int n) {
         row = new int[n];
         col = new int[n];
         diag = 0;
