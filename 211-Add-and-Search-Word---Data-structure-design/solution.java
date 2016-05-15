@@ -58,7 +58,7 @@ public class WordDictionary {
                 curr = curr.next[index];
             }else{
                 for (TrieNode tmp : curr.next) {
-                    if (tmp != null && DFS(word.subString(i), curr))
+                    if (tmp != null && DFS(word.substring(i), curr))
                         return true;
                     else
                         return false;
