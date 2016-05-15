@@ -1,14 +1,14 @@
 public class Solution {
     public int strStr(String haystack, String needle) {
-        if (haystack.length() == 0)
-            return -1;
-            
-        if (needle.isEmpty())
+        if (haystack.isEmpty() && needle.isEmpty())
             return 0;
+        
+        if (haystack.isEmpty() == 0)
+            return -1;
         
         int j = 0;    
         for (int i=0; i<haystack.length(); i++) {
-            while (i+needle.length() < haystack.length() && && j< needle.length() 
+            while (i+needle.length() < haystack.length() && j< needle.length() 
                 && haystack.charAt(i+j) == needle.charAt(j)) {
                 j++;
             }
