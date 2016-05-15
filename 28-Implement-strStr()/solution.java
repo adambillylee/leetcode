@@ -7,8 +7,8 @@ public class Solution {
             return 0;
         
         int j = 0;    
-        for (int i=0; i<heystack.length(); i++) {
-            while (i+needle.length() < heystack.length() && heystack.charAt(i+j) == needle.charAt(j)) {
+        for (int i=0; i<haystack.length(); i++) {
+            while (i+needle.length() < haystack.length() && haystack.charAt(i+j) == needle.charAt(j)) {
                 if (j >= needle.length())
                     continue;
                 
