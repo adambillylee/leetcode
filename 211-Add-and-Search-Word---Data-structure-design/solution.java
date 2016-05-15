@@ -23,7 +23,7 @@ public class WordDictionary {
             char c = word.charAt(i);
             
             int index;
-            if (c.equals(".")) {
+            if (c == '.') {
                 index = 27;
             }else{
                 index = c - 'a';
@@ -46,7 +46,7 @@ public class WordDictionary {
             char c = word.charAt(i);
             
             int index;
-            if (c.equals(".")) {
+            if (c == '.') {
                 index = 27;
             }else{
                 index = c - 'a';
