@@ -35,8 +35,8 @@ public class Trie {
     public boolean search(String word) {
         TrieNode curr = root;
         
-        for (int i=0; i<prefix.length(); i++) {
-            char c = prefix.charAt(i);
+        for (int i=0; i<word.length(); i++) {
+            char c = word.charAt(i);
             int index = c - 'a';
             
             if (curr.next[index] == null)
