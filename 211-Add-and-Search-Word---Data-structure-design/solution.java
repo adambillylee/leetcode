@@ -45,7 +45,7 @@ public class WordDictionary {
     
     private boolean DFS(String word, TrieNode root) {
         if (root == null) 
-            return curr.word != null;
+            return false;
         
         TrieNode curr = root;
 
