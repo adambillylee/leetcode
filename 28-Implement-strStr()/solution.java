@@ -11,7 +11,6 @@ public class Solution {
             while (i+needle.length() <= haystack.length() && j< needle.length() 
                 && haystack.charAt(i+j) == needle.charAt(j)) {
                 j++;
-                System.out.println(j);
             }
             
             if (j == needle.length())
