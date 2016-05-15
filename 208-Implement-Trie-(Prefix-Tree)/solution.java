@@ -45,7 +45,7 @@ public class Trie {
             curr = curr.next[index];
         }
          
-        return curr.word.equals(word);
+        return curr.word != null && curr.word.equals(word);
     }
 
     // Returns if there is any word in the trie
