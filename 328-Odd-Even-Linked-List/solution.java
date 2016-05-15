@@ -13,10 +13,10 @@ public class Solution {
         ListNode orig = head.next;
         
         while (even != null && even.next != null) {
-            even.next = even.next.next;
             odd.next = odd.next.next;
-            even = even.next;
+            even.next = even.next.next;
             odd = odd.next;
+            even = even.next;
         }
         odd.next = orig;
         
