@@ -19,6 +19,7 @@ public class MovingAverage {
         }
 
         candidate.add(val);
+        sum += val;
 
         return (double) sum / candidate.size();
     }
