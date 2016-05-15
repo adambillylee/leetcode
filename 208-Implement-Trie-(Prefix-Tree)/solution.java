@@ -33,7 +33,17 @@ public class Trie {
 
     // Returns if the word is in the trie.
     public boolean search(String word) {
-        return startsWith(word) && curr.word.equals(word);
+        TrieNode curr = root;
+        
+        for (int i=0; i<prefix.length(); i++) {
+            char c = prefix.charAt(i);
+            int index = c - 'a';
+            
+            if (curr.next[index] == null)
+                return false;
+        }
+         
+        return curr.word.equals(word);
     }
 
     // Returns if there is any word in the trie
