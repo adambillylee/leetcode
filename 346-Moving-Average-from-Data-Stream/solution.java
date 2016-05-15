@@ -12,8 +12,7 @@ public class MovingAverage {
     
     public double next(int val) {
         if (candidate.size() == size) {
-            int first = candidate.get(0);
-            candidate.removeFirst();
+            int first = candidate.removeFirst();
             sum -= first;
         }
         
