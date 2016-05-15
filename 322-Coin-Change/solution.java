@@ -16,7 +16,7 @@ public class Solution {
             set.add(coin);
 
         for (int i = 0; i <= amount; i++) {
-            for (int j = i-1; j >=0; j--) {
+            for (int j = 0; j <i; j++) {
                 /**
                  * if there is a way to make up j and there is coin to add j up to i
                  */
