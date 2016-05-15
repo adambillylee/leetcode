@@ -1,8 +1,11 @@
 class TrieNode {
+    String word;
+    char[] next
+    
     // Initialize your data structure here.
     public TrieNode() {
-        String word = null;
-        char[] next = new char[26];
+        word = null;
+        next = new char[26];
     }
 }
 
