@@ -33,7 +33,7 @@ public class Trie {
 
     // Returns if the word is in the trie.
     public boolean search(String word) {
-        return startWith(word) && curr.word.equals(word);
+        return this.startWith(word) && curr.word.equals(word);
     }
 
     // Returns if there is any word in the trie
