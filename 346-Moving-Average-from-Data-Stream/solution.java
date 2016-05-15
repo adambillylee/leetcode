@@ -3,7 +3,9 @@ public class MovingAverage {
     LinkedList<Integer> candidate;
     int size;
 
-    /** Initialize your data structure here. */
+    /**
+     * Initialize your data structure here.
+     */
     public MovingAverage(int size) {
         sum = 0;
         candidate = new LinkedList<Integer>();
@@ -18,7 +20,7 @@ public class MovingAverage {
 
         candidate.add(val);
 
-        return (double)sum / candidate.size();
+        return (double) sum / candidate.size();
     }
 }
 
