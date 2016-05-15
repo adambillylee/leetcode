@@ -6,15 +6,15 @@ public class Solution {
         if (needle.isEmpty())
             return 0;
         
-        for (int i=0; i<heystack.length(); i++) {
+        for (int i=0; i<haystack.length(); i++) {
             for (int j=0; j<needle.length(); j++) {
-                if (i+j > heystack.length())
+                if (i+j > haystack.length())
                     continue;
                 
-                if (heystack.charAt(i) != needle.charAt(j))
+                if (haystack.charAt(i) != needle.charAt(j))
                     continue;
                     
-                if (j == needle.charAt(j))
+                if (j == needle.length()-1)
                     return i;
             }
         }
