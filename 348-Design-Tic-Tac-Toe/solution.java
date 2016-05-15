@@ -1,11 +1,17 @@
 public class TicTacToe {
-    int board[][];
+    int row[];
+    int col[];
+    int diag;
+    int antiDiag;
 
     /**
      * Initialize your data structure here.
      */
-    public TicTacToe(int n) {
-        board = new int[n][n];
+    public TicTacToeO1(int n) {
+        row = new int[n];
+        col = new int[n];
+        diag = 0;
+        antiDiag = 0;
     }
 
     /**
@@ -20,132 +26,32 @@ public class TicTacToe {
      * 2: Player 2 wins.
      */
     public int move(int row, int col, int player) {
-        board[row][col] = player;
+        int n = this.row.length;
+        int toAdd = player == 1 ? 1 : -1;
 
-        int checkRow = checkRow(row, col);
-        if (checkRow > 0)
-            return checkRow;
+        this.row[row] += toAdd;
+        if (Math.abs(this.row[row]) == n)
+            return player;
 
-        int checkCol = checkCol(row, col);
-        if (checkCol > 0)
-            return checkCol;
+        this.col[col]+= toAdd;
+        if (Math.abs(this.col[col]) == n)
+            return player;
 
         if (row == col) {
-            int checkDiag = checkDiag(row, col);
-            if (checkDiag > 0)
-                return checkDiag;
+            this.diag+= toAdd;
 
+            if (Math.abs(this.diag) == n)
+                return player;
         }
 
-        if (row + col == board.length - 1) {
-            int checkAntiDiag = checkAntiDiag(row, col);
-            if (checkAntiDiag > 0)
-                return checkAntiDiag;
+        if (row + col == n - 1) {
+            this.antiDiag+= toAdd;
+
+            if (Math.abs(this.antiDiag) == n)
+                return player;
         }
 
         return 0;
-    }
-
-    public int checkRow(int row, int col) {
-        int n = board.length;
-        int curr = board[row][col];
-        int count = 0;
-
-        for (int i = 0; i < n; i++) {
-            if (board[row][i] == 0) {
-                return 0;
-            } else {
-                if (board[row][i] == curr) {
-                    count++;
-                } else {
-                    count = 0;
-                }
-            }
-        }
-
-        if (count == n) {
-            return board[row][0];
-        } else {
-            return 0;
-        }
-    }
-
-    public int checkCol(int row, int col) {
-        int n = board.length;
-        int curr = board[row][col];
-        int count = 0;
-
-        for (int i = 0; i < n; i++) {
-            if (board[i][col] == 0) {
-                return 0;
-            } else {
-                if (board[i][col] == curr) {
-                    count++;
-                } else {
-                    count = 0;
-                }
-            }
-        }
-
-        if (count == n) {
-            return board[0][col];
-        } else {
-            return 0;
-        }
-    }
-
-    public int checkDiag(int row, int col) {
-        int curr = board[row][col];
-        int n = board.length;
-
-        int currRow = row;
-        int currCol = col;
-        while (currRow >= 0 && currCol >= 0) {
-            if (board[currRow][currCol] != curr)
-                return 0;
-
-            currRow--;
-            currCol--;
-        }
-
-        currRow = row;
-        currCol = col;
-        while (currRow < n && currCol < n) {
-            if (board[currRow][currCol] != curr)
-                return 0;
-
-            currRow++;
-            currCol++;
-        }
-
-        return curr;
-    }
-
-    public int checkAntiDiag(int row, int col) {
-        int curr = board[row][col];
-        int n = board.length;
-
-        int currRow = row;
-        int currCol = col;
-        while (currRow >= 0 && currCol < n) {
-            if (board[currRow][currCol] != curr)
-                return 0;
-
-            currRow--;
-            currCol++;
-        }
-
-        currRow = row;
-        currCol = col;
-        while (currRow < n && currCol >= 0) {
-            if (board[currRow][currCol] != curr)
-                return 0;
-
-            currRow++;
-            currCol--;
-        }
-
-        return curr;
     }
 }
 
