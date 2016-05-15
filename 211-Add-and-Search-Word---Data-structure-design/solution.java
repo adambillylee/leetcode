@@ -44,32 +44,32 @@ public class WordDictionary {
     }
     
     private boolean DFS(String word, TrieNode root) {
-        if (root == null) 
-            return false;
-        
+        if (word.isEmpty())
+            return root.word != null;
+
         TrieNode curr = root;
 
         for (int i=0; i<word.length(); i++) {
             char c = word.charAt(i);
-            
+
             if (c != '.') {
                 int index = c - 'a';
-                
+
                 if (curr.next[index] == null)
                     return false;
-    
+
                 curr = curr.next[index];
             }else{
                 for (TrieNode tmp : curr.next) {
-                    if (tmp != null && DFS(word.substring(i), curr))
+                    if (tmp != null && DFS(word.substring(i+1), tmp))
                         return true;
-                    else
-                        return false;
                 }
+
+                return false;
             }
         }
-        
-        return curr.word != null;        
+
+        return curr.word != null;
     }
 }
 
