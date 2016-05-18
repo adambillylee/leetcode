@@ -1,143 +1,85 @@
 class LRUNode {
     int key;
     int value;
-    int count;
-    LRUNode more;
-    LRUNode less;
+    LRUNode newer;
+    LRUNode older;
 
     LRUNode(int key, int value) {
         this.key = key;
         this.value = value;
-        this.count = 1;
     }
 }
 
-/**
- * Created by adamli on 5/17/16.
- */
 public class LRUCache {
-    /**
-     * key: key
-     * value : node of key
-     */
-    Map<Integer, LRUNode> map;
-    LRUNode most;
-    LRUNode least;
     int capacity;
-    Set<Integer> counts;
+    LRUNode latest;
+    LRUNode oldest;
+    int currSize;
+    Map<Integer, LRUNode> map;
 
     public LRUCache(int capacity) {
-        map = new HashMap<>();
-        most = null;
-        least = null;
         this.capacity = capacity;
-        this.counts = new HashSet<>();
+        oldest = null;
+        latest = null;
+        currSize = 0;
+        map = new HashMap<>();
     }
 
     public int get(int key) {
-        if (map.get(key) == null) {
-            System.out.println(-1);
+        if (map.get(key) == null)
             return -1;
-        }
 
-        System.out.println(map.get(key).value);
         return map.get(key).value;
     }
 
     public void set(int key, int value) {
-        // if key already in cache
         if (map.get(key) != null) {
-            // update count
-            map.get(key).count++;
-            counts.add(map.get(key).count);
-
-            // adjust key order in double linked list
-            updateOrder(key);
-
-            // clean up the cache if there are too many
-            cleanUpCache();
+            deleteNode(key);
+            appendNode(key, value);
         } else {
-            // unless cache is full and least count > 1, add new pair
-            if (!(counts.size() == capacity && least.count > 1))
-                addNewPair(key, value);
-        }
-    }
-
-    private void cleanUpCache() {
-        if (counts.size() > capacity) {
-            int leastCount = least.count;
-
-            // start with least
-            LRUNode curr = least;
-
-            // find first node with count > leastCount and remove all nodes on the way
-            while (curr != null && curr.count == leastCount) {
-                map.remove(curr.key);
-                curr = curr.more;
+            if (currSize < capacity) {
+                appendNode(key, value);
+            } else {
+                int oldestKey = oldest.key;
+                deleteNode(oldestKey);
+                appendNode(key, value);
             }
-
-            // update least
-            least = curr;
-
-            // update current count
-            counts.remove(leastCount);
         }
     }
 
-    private void addNewPair(int key, int value) {
+    private void appendNode(int key, int value) {
         LRUNode tmp = new LRUNode(key, value);
-        tmp.more = least;
-        tmp.less = null;
 
-        // number of different counts in the map
-        counts.add(1);
-
-        // update least to tmp
-        if (least != null) {
-            least.less = tmp;
+        if (currSize == 0) {
+            oldest = tmp;
+            latest = tmp;
+        } else {
+            latest.newer = tmp;
+            latest = tmp;
         }
-        least = tmp;
 
-        // if cache is empty this is most as well
-        if (map.size() == 0)
-            most = tmp;
-
-        // update map
         map.put(key, tmp);
+        currSize++;
     }
 
-    public void updateOrder(int key) {
-        // node 1, count =3
-        LRUNode orig = map.get(key);
+    private void deleteNode(int key) {
+        LRUNode toDelete = map.get(key);
 
-        // node 1, count =3
-        LRUNode curr = map.get(key);
-
-        // find the last "more" node with count < new curr count
-        // 3 at this case
-        while (curr.more != null && curr.more.count < orig.count) {
-            curr = curr.more;
+        if (toDelete.newer != null) {
+            toDelete.newer.older = toDelete.older;
         }
 
-        // if order needs update
-        if (curr != orig) {
-            // if most was 3, new most must be 1
-            if (most == curr)
-                most = orig;
-
-            // if least was 1, then 2 has to be new least
-            if (least == orig)
-                least = orig.more;
-
-            // 2.less = null
-            orig.more.less = orig.less;
-
-            // 1.more = 3.more = null
-            orig.more = curr.more;
-            // 1.less = 3
-            orig.less = curr;
-            // 3.more = 1
-            curr.more = orig;
+        if (toDelete.older != null) {
+            toDelete.older.newer = toDelete.newer;
         }
+
+        if (toDelete == oldest)
+            oldest = toDelete.newer;
+
+        if (toDelete == latest)
+            latest = toDelete.older;
+
+        map.remove(key);
+        currSize--;
     }
 }
