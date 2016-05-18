@@ -35,9 +35,12 @@ public class LRUCache {
     }
 
     public int get(int key) {
-        if (map.get(key) == null)
+        if (map.get(key) == null) {
+            System.out.println(-1);
             return -1;
+        }
 
+        System.out.println(map.get(key).value);
         return map.get(key).value;
     }
 
@@ -90,7 +93,9 @@ public class LRUCache {
         counts.add(1);
 
         // update least to tmp
-        least.less = tmp;
+        if (least != null) {
+            least.less = tmp;
+        }
         least = tmp;
 
         // if cache is empty this is most as well
