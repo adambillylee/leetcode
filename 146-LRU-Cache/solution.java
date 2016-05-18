@@ -28,6 +28,12 @@ public class LRUCache {
     public int get(int key) {
         if (map.get(key) == null)
             return -1;
+            
+        // refresh node for key to latest
+        LRUNode tmp = map.get(key);
+        int value = tmp.value;
+        deleteNode(key);
+        appendNode(key, value);
 
         return map.get(key).value;
     }
@@ -54,6 +60,7 @@ public class LRUCache {
             oldest = tmp;
             latest = tmp;
         } else {
+            tmp.older = latest;
             latest.newer = tmp;
             latest = tmp;
         }
