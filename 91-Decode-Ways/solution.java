@@ -5,6 +5,9 @@ public class Solution {
         dp[0] = 1;
         for (int i=0; i<s.length()-1;i++) {
             for (int j=i-1; j>=i-2; j++) {
+                if (j<0)
+                    continue;
+                
                 int curr = Integer.parseInt(s.substring(j,i));
         
                 if (dp[j]>1 && curr >0 && curr <=26)
