@@ -3,7 +3,7 @@ public class Solution {
         int dp[] = new int[s.length()+1];
         
         dp[0] = 1;
-        for (int i=0; i<s.length()-1;i++) {
+        for (int i=1; i<s.length()-1;i++) {
             for (int j=i-1; j>=i-2; j++) {
                 if (j<0)
                     continue;
