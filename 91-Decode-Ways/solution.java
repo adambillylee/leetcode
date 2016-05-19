@@ -8,13 +8,28 @@ public class Solution {
                 if (j<0)
                     continue;
                 
-                int curr = Integer.parseInt(s.substring(j,i));
+                String curr = s.substring(j,i);
         
-                if (dp[j]>1 && curr >0 && curr <=26)
+                if (dp[j]>1 && valid(curr))
                     dp[i] = dp[j]+1;
             }
         }
         
         return dp[s.length()];
+    }
+    
+    boolean valid(String curr) {
+        if (curr.isEmpty())
+            return false;
+            
+        if (curr.charAt(0) == '0')
+            return false;
+        
+        int number = Integer.parseInt(curr);
+        
+        if (curr<0 || curr >26)
+            return false;
+            
+        return true;
     }
 }
