@@ -12,7 +12,7 @@ public class Solution {
                 i++;
                 k++;
             }else if (curr == 2) {
-                swap(nums, k, j)
+                swap(nums, k, j);
                 j--;
             }else{
                 k++;
