@@ -5,7 +5,7 @@ public class Solution {
         dp[0] = 1;
         for (int i=1; i<s.length()-1;i++) {
             for (int j=i-1; j>=i-2; j++) {
-                if (j-1<0)
+                if (j-1<=0)
                     continue;
                 
                 String curr = s.substring(j,i);
