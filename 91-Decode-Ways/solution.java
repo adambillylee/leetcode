@@ -7,7 +7,7 @@ public class Solution {
             for (int j=i-1; j>=i-2; j++) {
                 int curr = Integer.parseInt(s.substring(j,i));
         
-                if (dp[j]>1 && curr >0 && dp <=26)
+                if (dp[j]>1 && curr >0 && curr <=26)
                     dp[i] = dp[j]+1;
             }
         }
