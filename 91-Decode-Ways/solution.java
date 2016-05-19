@@ -27,7 +27,7 @@ public class Solution {
         
         int number = Integer.parseInt(curr);
         
-        if (curr<0 || curr >26)
+        if (number <0 || number >26)
             return false;
             
         return true;
