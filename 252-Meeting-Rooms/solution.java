@@ -12,7 +12,8 @@ public class Solution {
         if (intervals.length == 0)
             return true;
             
-        Comparator<Interval> comparator = new Comparator() {
+        // sort all intervals by start time first
+        Comparator<Interval> comparator = new Comparator<Interval>() {
             @Override
             public int compare(Interval o1, Interval o2) {
                 return o1.start - o2.start;
