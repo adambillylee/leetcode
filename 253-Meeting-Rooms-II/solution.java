@@ -21,7 +21,7 @@ public class Solution {
                 return o1.start - o2.start;
             }
         };
-        Collections.sort(intervals, comparator);
+        Arrays.sort(intervals, comparator);
         
         int end = intervals[0].end;
         for (int i=1; i<intervals.length; i++) {
@@ -30,7 +30,7 @@ public class Solution {
             if (interval.start < end) {
                 counter++;
             }else{
-                end = Math.max(end, interval.end);
+                end = interval.end);
             }
         }
         
