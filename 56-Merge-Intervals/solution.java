@@ -11,8 +11,8 @@ public class Solution {
     public List<Interval> merge(List<Interval> intervals) {
         List<Interval> rst = new ArrayList<>();
 
-        if (intervals.size() == 0)
-            return rst;
+        if (intervals.size() <= 1)
+            return intervals;
 
         // sort all intervals by start time first
         Comparator<Interval> comparator = new Comparator<Interval>() {
@@ -23,29 +23,12 @@ public class Solution {
         };
         Collections.sort(intervals, comparator);
 
-//        int i = 0;
-//        while (i < intervals.size()) {
-//            if (i == intervals.size() - 1) {
-//                rst.add(intervals.get(i));
-//                break;
-//            }
-//
-//            int j = i + 1;
-//            Interval tmp = intervals.get(i);
-//            while (j < intervals.size() && overlap(tmp, intervals.get(j))) {
-//                tmp = merge(tmp, intervals.get(j));
-//                j++;
-//            }
-//
-//            rst.add(tmp);
-//            i = j;
-//        }
         int start = intervals.get(0).start;
         int end = intervals.get(0).end;
 
         for (Interval interval : intervals) {
-            if (interval.start < end) {
-                end = interval.end;
+            if (interval.start <= end) {
+                end = Math.max(end, interval.end);
             } else{
                 rst.add(new Interval(start, end));
                 start = interval.start;
@@ -53,14 +36,7 @@ public class Solution {
             }
         }
 
+        rst.add(new Interval(start, end));
         return rst;
-    }
-
-    private Interval merge(Interval tmp, Interval prev) {
-        return new Interval(Math.min(tmp.start, prev.start), Math.max(tmp.end, prev.end));
-    }
-
-    private boolean overlap(Interval prev, Interval tmp) {
-        return prev.end >= tmp.start;
     }
 }
