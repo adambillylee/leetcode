@@ -19,11 +19,11 @@ public class Solution {
                 return o1.start - o2.start;
             }
         };
-        Collections.sort(intervals, comparator);
+        Arrays.sort(intervals, comparator);
             
         int end = -1;
         for (Interval interval : intervals) {
-            if (interval.start <= end)
+            if (interval.start < end)
                 return false;
             else
                 end = interval.end;
