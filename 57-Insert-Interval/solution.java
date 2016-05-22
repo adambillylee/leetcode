@@ -18,7 +18,7 @@ public class Solution {
 
         // before newInterval
         int curr = 0;
-        while (intervals.get(curr).end < newInterval.start) {
+        while (curr < intervals.size() && intervals.get(curr).end < newInterval.start) {
             rst.add(intervals.get(curr));
             curr++;
         }
@@ -26,7 +26,7 @@ public class Solution {
         // merge new intervel
         int start = newInterval.start;
         int end = newInterval.end;
-        while (curr < intervals.size() && intervals.get(curr).start < newInterval.end) {
+        while (curr < intervals.size() && intervals.get(curr).start <= newInterval.end) {
             start = Math.min(start, intervals.get(curr).start);
             end = Math.max(end, intervals.get(curr).end);
             curr++;
