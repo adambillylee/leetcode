@@ -10,6 +10,11 @@
 public class Solution {
     public List<Interval> insert(List<Interval> intervals, Interval newInterval) {
         List<Interval> rst = new ArrayList<>();
+        
+        if (intervals.size() == 0) {
+            rst.add(newInterval);
+            return rst;
+        }
 
         // before newInterval
         int curr = 0;
