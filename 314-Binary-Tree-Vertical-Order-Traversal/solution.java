@@ -26,11 +26,14 @@ public class Solution {
 
     public List<List<Integer>> verticalOrder(TreeNode root) {
         List<List<Integer>> rst = new ArrayList<>();
+        
+        if (root == null)
+            return rst;
 
         Queue<Pair> queue = new LinkedList<>();
         DNode mid = new DNode();
         queue.offer(new Pair(mid, root));
-        DNode leftMost = null;
+        DNode leftMost = mid;
 
         while (!queue.isEmpty()) {
             Queue<Pair> next = new LinkedList<>();
