@@ -8,29 +8,29 @@
  * }
  */
 public class Solution {
-    private class Pair {
-        TreeNode node;
-        int col;
+    private class DNode {
+        List<Integer> vals = new ArrayList<>();
+        DNode left;
+        DNode right;
+    }
 
-        Pair(TreeNode node, int col) {
-            this.node = node;
-            this.col = col;
+    private class Pair {
+        DNode link;
+        TreeNode tree;
+
+        Pair(DNode link, TreeNode tree) {
+            this.link = link;
+            this.tree = tree;
         }
     }
 
     public List<List<Integer>> verticalOrder(TreeNode root) {
         List<List<Integer>> rst = new ArrayList<>();
-        
-        if (root == null)
-            return rst;
-        
-        int minCol = 0;
-        int maxCol = 0;
-
-        Map<Integer, List<Integer>> map = new HashMap();
 
         Queue<Pair> queue = new LinkedList<>();
-        queue.offer(new Pair(root, 0));
+        DNode mid = new DNode();
+        queue.offer(new Pair(mid, root));
+        DNode leftMost = null;
 
         while (!queue.isEmpty()) {
             Queue<Pair> next = new LinkedList<>();
@@ -38,29 +38,35 @@ public class Solution {
 
             for (int i = 0; i < len; i++) {
                 Pair curr = queue.poll();
-                int col = curr.col;
-                TreeNode node = curr.node;
+                DNode link = curr.link;
+                TreeNode tree = curr.tree;
 
-                if (!map.containsKey(col)) {
-                    minCol = Math.min(minCol, col);
-                    maxCol = Math.max(maxCol, col);
-                    map.put(col, new ArrayList<>());
+                link.vals.add(tree.val);
+
+                if (tree.left != null) {
+                    if (link.left == null) {
+                        link.left = new DNode();
+                        link.left.right = link;
+                        leftMost = link.left;
+                    }
+                    next.add(new Pair(link.left, tree.left));
                 }
 
-                map.get(col).add(node.val);
-//                System.out.println("col: " + col + " val: " + node.val);
-
-                if (node.left != null)
-                    next.offer(new Pair(node.left, col - 1));
-                if (node.right != null)
-                    next.offer(new Pair(node.right, col + 1));
-
+                if (tree.right != null) {
+                    if (link.right == null) {
+                        link.right = new DNode();
+                        link.right.left = link;
+                    }
+                    next.add(new Pair(link.right, tree.right));
+                }
             }
+
             queue = next;
         }
 
-        for (int col = minCol; col <= maxCol; col++) {
-            rst.add(map.get(col));
+        while (leftMost != null) {
+            rst.add(leftMost.vals);
+            leftMost = leftMost.right;
         }
 
         return rst;
