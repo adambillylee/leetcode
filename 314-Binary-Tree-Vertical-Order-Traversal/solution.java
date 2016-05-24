@@ -8,41 +8,58 @@
  * }
  */
 public class Solution {
-    int minCol = 0;
-    int maxCol = 0;
+    private class Pair {
+        TreeNode node;
+        int col;
+
+        Pair(TreeNode node, int col) {
+            this.node = node;
+            this.col = col;
+        }
+    }
 
     public List<List<Integer>> verticalOrder(TreeNode root) {
+        int minCol = 0;
+        int maxCol = 0;
+
         Map<Integer, List<Integer>> map = new HashMap();
 
-        helper(root, map, 0);
+        Queue<Pair> queue = new LinkedList<>();
+        queue.offer(new Pair(root, 0));
 
-        List<List<Integer>> rst = new ArrayList<List<Integer>>();
-        for (int col = minCol; col <= maxCol; col++) {
-            if (map.get(col) != null) {
-                rst.add(map.get(col));
+        while (!queue.isEmpty()) {
+            Queue<Pair> next = new LinkedList<>();
+            int len = queue.size();
+
+            for (int i = 0; i < len; i++) {
+                Pair curr = queue.poll();
+                int col = curr.col;
+                TreeNode node = curr.node;
+
+                if (!map.containsKey(col)) {
+                    minCol = Math.min(minCol, col);
+                    maxCol = Math.max(maxCol, col);
+                    map.put(col, new ArrayList<>());
+                }
+
+                map.get(col).add(node.val);
+//                System.out.println("col: " + col + " val: " + node.val);
+
+                if (node.left != null)
+                    next.offer(new Pair(node.left, col - 1));
+                if (node.right != null)
+                    next.offer(new Pair(node.right, col + 1));
+
             }
+            queue = next;
+        }
+
+
+        List<List<Integer>> rst = new ArrayList<>();
+        for (int col = minCol; col <= maxCol; col++) {
+            rst.add(map.get(col));
         }
 
         return rst;
-    }
-
-    private void helper(TreeNode root, Map<Integer, List<Integer>> map, int col) {
-        if (root == null) {
-            return;
-        }
-
-        List<Integer> tmp;
-        if (map.get(col) == null) {
-            minCol = Math.min(col, minCol);
-            maxCol = Math.max(col, maxCol);
-            tmp = new ArrayList<>(root.val);
-        } else {
-            tmp = map.get(col);
-        }
-        tmp.add(root.val);
-        map.put(col, tmp);
-
-        helper(root.left, map, col - 1);
-        helper(root.right, map, col + 1);
     }
 }
