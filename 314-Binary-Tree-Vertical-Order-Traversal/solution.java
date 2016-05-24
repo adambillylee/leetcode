@@ -19,6 +19,11 @@ public class Solution {
     }
 
     public List<List<Integer>> verticalOrder(TreeNode root) {
+        List<List<Integer>> rst = new ArrayList<>();
+        
+        if (root == null)
+            return rst;
+        
         int minCol = 0;
         int maxCol = 0;
 
@@ -54,8 +59,6 @@ public class Solution {
             queue = next;
         }
 
-
-        List<List<Integer>> rst = new ArrayList<>();
         for (int col = minCol; col <= maxCol; col++) {
             rst.add(map.get(col));
         }
