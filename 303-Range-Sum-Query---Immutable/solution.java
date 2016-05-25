@@ -2,7 +2,7 @@ public class NumArray {
 
     int sum[];
 
-    public RangeSumQuery(int[] nums) {
+    public NumArray(int[] nums) {
         sum = new int[nums.length];
 
         sum[0] = nums[0];
