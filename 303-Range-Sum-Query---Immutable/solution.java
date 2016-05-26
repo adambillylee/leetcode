@@ -3,7 +3,10 @@ public class NumArray {
     int sum[];
 
     public NumArray(int[] nums) {
-        sum = new int[nums.length];
+        if (nums.length >0)
+            sum = new int[nums.length];
+        else
+            return;
 
         sum[0] = nums[0];
         for (int i = 1; i < nums.length; i++) {
