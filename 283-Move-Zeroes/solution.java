@@ -10,8 +10,6 @@ public class Solution {
                 j++;
             }
         }
-        
-        return nums;
     }
     
     private void swap(int[] nums, int i, int j) {
