@@ -1,6 +1,6 @@
 public class Solution {
     public void moveZeroes(int[] nums) {
-        if (nums.size ==0)
+        if (nums.length ==0)
             return;
             
         int j = 0;    
