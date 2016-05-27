@@ -4,7 +4,7 @@ public class Solution {
         int j = s.length()-1;
         
         while (i<=j)  {
-            if (s.charAt(i).equals(t.charAt(j)))
+            if (s.charAt(i) == t.charAt(j))
                 return false;
             i++;
             j--;
