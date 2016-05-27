@@ -10,7 +10,7 @@ public class Solution {
             }
 
             rst[i] = rst[i - pow] + 1;
-            System.out.println(i + " : " + rst[i]);
+            // System.out.println(i + " : " + rst[i]);
         }
 
         return rst;
