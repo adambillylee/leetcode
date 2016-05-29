@@ -1,7 +1,5 @@
-class Solution(object):
-    def bulbSwitch(self, n):
-        """
-        :type n: int
-        :rtype: int
-        """
-        
+public class Solution {
+    public int bulbSwitch(int n) {
+        return Math.sqrt(n);
+    }
+}
