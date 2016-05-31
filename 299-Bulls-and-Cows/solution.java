@@ -7,13 +7,23 @@ public class Solution {
         }
 
         int rst[] = new int[2];
+        StringBuilder guessSB = new StringBuilder();
         for (int i = 0; i < guess.length(); i++) {
             char c = guess.charAt(i);
 
             if (c == secret.charAt(i)) {
                 rst[0]++;
                 delFromMap(map, c);
-            } else if (map.containsKey(c)) {
+            }else{
+                guessSB.append(c);
+            }
+        }
+
+        guess = guessSB.toString();
+        for (int i = 0; i < guess.length(); i++) {
+            char c = guess.charAt(i);
+
+            if (map.containsKey(c)) {
                 rst[1]++;
                 delFromMap(map, c);
             }
@@ -32,6 +42,9 @@ public class Solution {
     }
 
     private void delFromMap(Map<Character, Integer> map, char c) {
+        if (!map.containsKey(c))
+            return;
+
         map.put(c, map.get(c) - 1);
 
         if (map.get(c) == 0)
