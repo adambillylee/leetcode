@@ -13,40 +13,34 @@ public class Solution {
 
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                rst[i][j] = calculate(board, i, j);
+                board[i][j] = calculate(board, i, j);
             }
         }
-
-        board = rst;
     }
 
     private int calculate(int[][] board, int i, int j) {
-        int total = 0;
+        if (i < 0 || j < 0)
+            return 0;
 
-        total = addValue(board, i - 1, j - 1) + addValue(board, i - 1, j) + addValue(board, i, j - 1)
-                + addValue(board, i + 1, j + 1) + +addValue(board, i, j + 1) + addValue(board, i + 1, j)
-                + addValue(board, i + 1, j - 1) + addValue(board, i - 1, j + 1);
+        if (i >= m || j >= n)
+            return 0;
 
-        if (board[i][j] == 0) {
-            if (total == 3)
+        int curr = board[i][j];
+
+        int neighbours = calculate(board, i + 1, j + 1) + calculate(board, i + 1, j) + calculate(board, i, j + 1) +
+                calculate(board, i - 1, j - 1) + calculate(board, i - 1, j) + calculate(board, i, j - 1) +
+                calculate(board, i + 1, j - 1) + calculate(board, i - 1, j + 1);
+
+        if (curr == 1) {
+            if (neighbours == 2 || neighbours == 3)
                 return 1;
             else
                 return 0;
         } else {
-            if (total == 2 || total == 3)
+            if (neighbours == 3)
                 return 1;
             else
                 return 0;
         }
-    }
-
-    private int addValue(int[][] board, int i, int j) {
-        if (i < 0 || j < 0)
-            return 0;
-
-        if (i > m || j > n)
-            return 0;
-
-        return board[i][j];
     }
 }
