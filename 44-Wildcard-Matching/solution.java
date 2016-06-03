@@ -1,47 +1,37 @@
 public class Solution {
     public boolean isMatch(String s, String p) {
-        if (s == null || p == null
-                || s.length() == 0 || p.length() == 0)
+        if (s == null || p == null)
             return false;
 
-        // is ith in s is matches jth in p?
-        boolean dp[][] = new boolean[s.length() + 1][p.length() + 1];
-        
-        dp[0][0] = true;
-        for (int i=1; i<=m; i++) {
-            dp[i][0] = false;
-        }
+        int i = 0;
+        int j = 0;
+        int startP = -1;
+        int startS = -1;
+        int dist = -1;
 
-        dp[0][0] = true;
-        for (int j = 1; j <= p.length(); j++) {
-            if (p.charAt(j - 1) == '*') {
-                dp[0][j] = true;
+        while (j < s.length()) {
+            if (i < p.length() && p.charAt(i) == '*') {
+                startP = i;
+                startS = j;
+                dist = 0;
+                i++;
+            } else if (i < p.length() && (p.charAt(i) == s.charAt(j) || p.charAt(i) == '?')) {
+                i++;
+                j++;
             } else {
-                break;
-            }
-        }
-
-
-        for (int i = 0; i <= s.length(); i++) {
-            for (int j = 0; j <= p.length(); j++) {
-                if (i == 0 || j == 0)
-                    continue;
-
-                char currS = s.charAt(i - 1);
-                char currP = p.charAt(j - 1);
-
-                if (currP != '*') {
-                    if (currS != currP && currP != '?') {
-                        dp[i][j] = false;
-                    } else {
-                        dp[i][j] = dp[i - 1][j - 1];
-                    }
+                if (dist == -1) {
+                    return false;
                 } else {
-                    dp[i][j] = dp[i][j - 1] || dp[i - 1][j];
+                    dist++;
+                    i = startP + 1;
+                    j = startS + dist;
                 }
             }
         }
 
-        return dp[s.length()][p.length()];
+        while (i < p.length() && p.charAt(i) == '*')
+            i++;
+
+        return i == p.length() && j == s.length();
     }
 }
