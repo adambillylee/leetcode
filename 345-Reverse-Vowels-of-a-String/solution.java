@@ -12,7 +12,7 @@ public class Solution {
         
         
         for (char c : charArray) {
-            if (set.include(c))
+            if (set.contains(c))
                 vowels.append(0,c);
         }
         
@@ -20,7 +20,7 @@ public class Solution {
         for (int i=0; i<vowels.length; i++) {
             char c = charArray[i];
             
-            if (set.include(c))
+            if (set.contains(c))
                 charArray[i] = vowels.get(curr++);
         }
         
