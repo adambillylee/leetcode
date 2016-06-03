@@ -6,6 +6,11 @@ public class Solution {
         set.add('i');
         set.add('o');
         set.add('u');
+        set.add('A');
+        set.add('E');
+        set.add('I');
+        set.add('O');
+        set.add('U');
         
         char[] charArray = s.toCharArray();
         List<Character> vowels = new ArrayList();
@@ -17,7 +22,7 @@ public class Solution {
         }
         
         int curr=0;
-        for (int i=0; i<vowels.length; i++) {
+        for (int i=0; i<charArray.length; i++) {
             char c = charArray[i];
             
             if (set.contains(c))
