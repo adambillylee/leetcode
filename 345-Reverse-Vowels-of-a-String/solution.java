@@ -13,7 +13,7 @@ public class Solution {
         
         for (char c : charArray) {
             if (set.contains(c))
-                vowels.append(0,c);
+                vowels.add(0,c);
         }
         
         int curr=0;
