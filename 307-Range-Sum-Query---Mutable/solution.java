@@ -13,6 +13,9 @@ public class NumArray {
     BinaryIndexTreeNode root = new BinaryIndexTreeNode();
 
     public NumArray(int[] nums) {
+        if (nums.length == 0)
+            return;
+        
         this.nums = nums;
         sum = new int[nums.length];
 
@@ -29,6 +32,8 @@ public class NumArray {
         int delta = val - nums[i];
 
         updateSum(i, delta, root);
+        
+        nums[i] = val;
     }
 
     public void updateSum(int i, int delta, BinaryIndexTreeNode root) {
