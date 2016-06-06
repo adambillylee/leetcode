@@ -30,14 +30,31 @@ public class Solution {
                 "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"};
         String tens[] = {"", "", "Twenty ", "Thirty ", "Forty ", "Fifty ", "Sixty ", "Seventy ", "Eighty ", "Ninety "};
 
-        if (num < 20) {
-            sb.append(twenty[num]);
-        } else if (num < 100) {
-            sb.append(tens[num / 10]).append(twenty[num % 10]);
-        } else {
-            sb.append(twenty[num / 100]).append(" Hundred ");
-            sb.append(helper(num % 100));
+    public String helper(int num) {
+        StringBuilder sb = new StringBuilder();
+
+        String twenty[] = {"", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten",
+                "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"};
+        String tens[] = {"", "", "Twenty ", "Thirty ", "Forty ", "Fifty ", "Sixty ", "Seventy ", "Eighty ", "Ninety "};
+
+        while (num > 0) {
+            if (num < 20) {
+                // for under 20, handle directly
+                sb.append(twenty[num]);
+                break;
+            } else if (num < 100) {
+                // for under 100, handles with tens + under twenty
+                sb.append(tens[num / 10]).append(twenty[num % 10]);
+                break;
+            } else {
+                // for hundreds, add hundred and solve with recursion
+                sb.append(twenty[num / 100]).append(" Hundred ");
+                num = num % 100;
+            }
         }
+
+        return sb.toString().trim();
+    }
 
         return sb.toString().trim();
     }
