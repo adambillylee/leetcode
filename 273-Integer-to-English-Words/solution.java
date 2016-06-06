@@ -30,13 +30,6 @@ public class Solution {
                 "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"};
         String tens[] = {"", "", "Twenty ", "Thirty ", "Forty ", "Fifty ", "Sixty ", "Seventy ", "Eighty ", "Ninety "};
 
-    public String helper(int num) {
-        StringBuilder sb = new StringBuilder();
-
-        String twenty[] = {"", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten",
-                "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"};
-        String tens[] = {"", "", "Twenty ", "Thirty ", "Forty ", "Fifty ", "Sixty ", "Seventy ", "Eighty ", "Ninety "};
-
         while (num > 0) {
             if (num < 20) {
                 // for under 20, handle directly
@@ -52,9 +45,6 @@ public class Solution {
                 num = num % 100;
             }
         }
-
-        return sb.toString().trim();
-    }
 
         return sb.toString().trim();
     }
