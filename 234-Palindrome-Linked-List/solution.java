@@ -41,6 +41,6 @@ public class Solution {
             next = next.next;
         }
 
-        return prev == null && next == null;
+        return true;
     }
 }
