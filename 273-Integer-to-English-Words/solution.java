@@ -6,12 +6,12 @@ public class Solution {
         StringBuilder sb = new StringBuilder();
 
         int i = 0;
-        String thousands[] = {" Thousand ", " Million ", " Billion "};
+        String thousands[] = {"", " Thousand ", " Million ", " Billion "};
 
         while (num > 0) {
             if (num % 1000 != 0) {
-                sb.insert(0, helper(num % 1000));
                 sb.insert(0, thousands[i]);
+                sb.insert(0, helper(num % 1000));
             }
 
             num /= 1000;
