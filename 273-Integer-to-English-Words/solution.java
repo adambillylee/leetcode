@@ -8,14 +8,13 @@ public class Solution {
         int i = 0;
         String thousands[] = {" Thousand ", " Million ", " Billion "};
 
-        while (num >= 1000) {
-            sb.insert(0, helper(num % 1000));
+        while (num > 0) {
+            if (num % 1000 != 0) {
+                sb.insert(0, helper(num % 1000));
+                sb.insert(0, thousands[i]);
+            }
 
             num /= 1000;
-            
-            if (num % 10 > 0 || n < 1000)
-                sb.insert(0, thousands[i]);
-                
             i++;
         }
 
