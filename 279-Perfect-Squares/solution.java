@@ -18,7 +18,7 @@ public class Solution {
                 min[i] = i;
 
                 for (int j = 1; j * j < i; j++) {
-                    int tmp = min[i - j * j] + min[j * j];
+                    int tmp = min[i - j * j] + 1;
 
                     if (tmp < min[i])
                         min[i] = tmp;
