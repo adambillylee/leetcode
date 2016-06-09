@@ -1,5 +1,5 @@
 # Write your MySQL query statement below
-select Num
+select id, Num
 from Logs
 having count(Num) > 3
 group by Id;
