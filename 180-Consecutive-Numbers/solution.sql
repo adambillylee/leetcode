@@ -1,5 +1,5 @@
 # Write your MySQL query statement below
-select Id, Num
+select count(Num) as ConsecutiveNums
 from Logs
-having count(Num) > 3
-group by Id;
+group by Id, Num
+having ConsecutiveNums >= 3;
