@@ -4,18 +4,18 @@ public class Solution {
             return 0;
 
         // for first state (prices[0])
-        int before_buy = 0;
-        int before_sell = -prices[0];
-        int after_sell = 0;
+        int rest = 0;
+        int buy = -prices[0];
+        int sell = 0;
 
         for (int i = 1; i < prices.length; i++) {
-            int tmp = before_buy;
-            before_buy = Math.max(before_buy, after_sell);
+            int tmp = rest;
+            rest = Math.max(rest, sell);
 
-            after_sell = before_sell + prices[i];
-            before_sell = Math.max(tmp - prices[i], before_sell);
+            sell = buy + prices[i];
+            buy = Math.max(tmp - prices[i], buy);
         }
 
-        return Math.max(after_sell, before_buy);
+        return Math.max(sell, rest);
     }
 }
