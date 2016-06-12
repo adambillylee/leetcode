@@ -1,4 +1,5 @@
 public class Solution {
+    public int maxProfit(int[] prices) {
         if (prices.length < 2 || prices == null)
             return 0;
 
@@ -9,11 +10,12 @@ public class Solution {
 
         for (int i = 1; i < prices.length; i++) {
             int tmp = before_buy;
-            before_buy = Math.max(before_buy, before_buy - prices[i]);
+            before_buy = Math.max(before_buy, after_sell);
 
-            after_sell = Math.max(before_sell, before_sell + prices[i]);
-            before_sell = Math.max(before_buy, tmp);
+            after_sell = before_sell + prices[i];
+            before_sell = Math.max(tmp - prices[i], before_sell);
         }
 
-        return Math.max(before_sell, after_sell);
+        return Math.max(after_sell, before_buy);
+    }
 }
