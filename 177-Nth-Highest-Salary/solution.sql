@@ -7,6 +7,6 @@ BEGIN
       select DISTINCT(Salary)
       from Employee
       order by Salary DESC
-      limit M, 1;
+      limit M, 1
   );
 END
