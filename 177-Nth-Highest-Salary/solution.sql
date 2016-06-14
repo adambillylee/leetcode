@@ -6,7 +6,7 @@ BEGIN
       # Write your MySQL query statement below.
       select distinct(Salary)
       from Employee e1
-      where count(Salary) from 
+      where select count(Salary) from 
         (select distinct(Salary) from Employee e2 where e2.Salary > e1.Salary) = N-1;
   );
 END
