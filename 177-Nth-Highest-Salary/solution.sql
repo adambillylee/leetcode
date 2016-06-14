@@ -4,9 +4,9 @@ BEGIN
   SET M = N-1;
   RETURN (
       # Write your MySQL query statement below.
-      select DISTINCT(Salary)
-      from Employee
-      order by Salary DESC
-      limit M, 1
+      select distinct(Salary)
+      from Employee e1
+      where count(Salary) from 
+        (select distinct(*) from Employee e2 where e2.Salary > e1.Salary) = N-1;
   );
 END
