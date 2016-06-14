@@ -7,6 +7,6 @@ BEGIN
       select distinct(Salary)
       from Employee e1
       where count(Salary) from 
-        (select distinct(*) from Employee e2 where e2.Salary > e1.Salary) = N-1;
+        (select distinct(Salary) from Employee e2 where e2.Salary > e1.Salary) = N-1;
   );
 END
