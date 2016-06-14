@@ -1,5 +1,5 @@
 # Write your MySQL query statement below
-select Department.name, Employee.name, Max(Salary)
+select Department.Name, Employee.Name, Max(Salary)
 from Employee e
 join Department d
 where e.DepartmentId = d.id
