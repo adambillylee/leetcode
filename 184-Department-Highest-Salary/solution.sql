@@ -1,4 +1,4 @@
-select d.Name, e.Name, (select DepartmentId, Max(Salary) as max from Employee group by DepartmentId) T
+select d.Name, e.Name, (select Max(Salary) as max from Employee group by DepartmentId) T
 from Department d
 join Employee e
 on e.DepartmentId = d.Id
