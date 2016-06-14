@@ -4,7 +4,7 @@ BEGIN
   SET M = N-1;
   RETURN (
       # Write your MySQL query statement below.
-      select Max(Salary)
+      select DISTINCT(Salary)
       from Employee
       order by Salary
       limit M, 1;
