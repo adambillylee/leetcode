@@ -6,7 +6,7 @@ BEGIN
       # Write your MySQL query statement below.
       select DISTINCT(Salary)
       from Employee
-      order by Salary
+      order by Salary DESC
       limit M, 1;
   );
 END
