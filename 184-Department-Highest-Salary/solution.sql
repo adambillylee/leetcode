@@ -2,6 +2,4 @@ select d.`Name`, e.`Name`, (select DepartmentId, Max(Salary) as max from Employe
 from Department d
 join Employee e
 on Employee.DepartmentId = Department.Id
-where Employee.Salary = T.max and
-Employee.DepartmentId = T.DepartmentId and
-Department.id = T.DepartmentId;
+where Employee.Salary = T.max;
