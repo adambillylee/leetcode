@@ -1,5 +1,14 @@
-select d.Name as Department, e.Name as Employee, e.Salary
-from Department d, (select DepartmentId, Max(Salary) as maxS from Employee group by DepartmentId) T, Employee e
-where e.DepartmentId = d.Id
-and e.DepartmentId = T.DepartmentId
-and e.Salary = T.maxS;
+SELECT d1.Name as Department
+    , e1.Name as Employee
+    , e1.Salary
+FROM (
+    SELECT d.Id
+        , d.Name AS Name
+        , MAX(e.Salary) AS Salary
+    FROM Department d
+    JOIN Employee e
+    ON e.DepartmentId = d.Id
+    GROUP BY d.Id
+) d1
+JOIN Employee e1
+ON d1.Id = e1.DepartmentId AND e1.Salary = d1.Salary
