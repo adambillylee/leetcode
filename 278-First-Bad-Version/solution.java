@@ -3,23 +3,22 @@
 
 public class Solution extends VersionControl {
     public int firstBadVersion(int n) {
-        int start = 0;
+        int start = 1;
         int end = n;
         
-        while (start < end) {
+        while (start +1 < end) {
             int mid = start + (end - start) /2;
             
             if (isBadVersion(mid)) {
-                end = mid -1;
+                end = mid;
             }else{
-                start = mid + 1;
+                start = mid;
             }
         }
         
         if (isBadVersion(start))
             return start;
-        
-        if (isBadVersion(end))
+        else
             return end;
     }
 }
