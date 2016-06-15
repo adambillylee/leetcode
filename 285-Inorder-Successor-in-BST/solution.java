@@ -18,4 +18,5 @@ public class Solution {
         TreeNode left = successor(root.left, p);
         return (left != null) ? left : root;
       }
+    }
 }
