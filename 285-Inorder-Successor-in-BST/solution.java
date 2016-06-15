@@ -8,7 +8,7 @@
  * }
  */
 public class Solution {
-    public TreeNode successor(TreeNode root, TreeNode p) {
+    public TreeNode inorderSuccessor(TreeNode root, TreeNode p) {
       if (root == null)
         return null;
     
