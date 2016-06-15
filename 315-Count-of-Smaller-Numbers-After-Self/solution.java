@@ -4,15 +4,14 @@ public class Solution {
         if (nums.length == 0 || nums == null)
             return rst;
 
-        Integer rstArray[] = new Integer[nums.length];
         List<Integer> tmp = new ArrayList<>();
         for (int i = nums.length - 1; i >= 0; i--) {
             int ind = findInsertPos(nums[i], tmp);
             tmp.add(ind, nums[i]);
-            rstArray[i] = ind;
+            rst.add(0, ind);
         }
 
-        return Arrays.asList(rstArray);
+        return rst;
     }
 
     private int findInsertPos(int num, List<Integer> tmp) {
