@@ -6,19 +6,19 @@ public class Solution extends VersionControl {
         int start = 1;
         int end = n;
         
-        while (start +1 < end) {
+        while (start < end) {
             int mid = start + (end - start) /2;
             
             if (isBadVersion(mid)) {
-                end = mid;
+                end = mid -1;
             }else{
-                start = mid;
+                start = mid +1;
             }
         }
         
         if (isBadVersion(start))
             return start;
         else
-            return end;
+            return start + 1;
     }
 }
