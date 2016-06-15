@@ -9,14 +9,35 @@
  */
 public class Solution {
     public TreeNode inorderSuccessor(TreeNode root, TreeNode p) {
-      if (root == null)
-        return null;
-    
-      if (root.val <= p.val) {
-        return inorderSuccessor(root.right, p);
-      } else {
-        TreeNode left = inorderSuccessor(root.left, p);
-        return (left != null) ? left : root;
-      }
+        TreeNode curr = root;
+        TreeNode lastLarger = null;
+
+        /**
+         * put curr to p in the tree
+         */
+        while (curr != p) {
+            if (curr.val < p.val) {
+                curr = curr.right;
+            } else {
+                lastLarger = curr;
+                curr = curr.left;
+            }
+        }
+
+        if (curr.right != null) {
+            /**
+             * if p in tree has right child
+             * the successor is the left most child of right tree
+             */
+            curr = curr.right;
+
+            while (curr.left != null)
+                curr = curr.left;
+
+            return curr;
+        } else {
+            // if else, its the last node on the path has value > p
+            return lastLarger;
+        }
     }
 }
