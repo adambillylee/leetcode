@@ -13,9 +13,9 @@ public class Solution {
         return null;
     
       if (root.val <= p.val) {
-        return successor(root.right, p);
+        return inorderSuccessor(root.right, p);
       } else {
-        TreeNode left = successor(root.left, p);
+        TreeNode left = inorderSuccessor(root.left, p);
         return (left != null) ? left : root;
       }
     }
