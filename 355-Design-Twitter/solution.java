@@ -35,6 +35,9 @@ public class Twitter {
         List<Integer> rst = new ArrayList<>();
         int counter = 0;
         Set<Integer> following = follows.get(userId);
+        
+        if (following == null)
+            following = new HashSet();
 
         for (int i = tweets.size() - 1; i >= 0; i--) {
             Tweet curr = tweets.get(i);
@@ -71,6 +74,9 @@ public class Twitter {
      * Follower unfollows a followee. If the operation is invalid, it should be a no-op.
      */
     public void unfollow(int followerId, int followeeId) {
+        if (followerId == followeeId)
+            return;
+        
         if (follows.containsKey(followerId)) {
             follows.get(followerId).remove(followeeId);
         }
