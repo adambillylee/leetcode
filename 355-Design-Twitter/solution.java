@@ -59,6 +59,11 @@ public class Twitter {
 
         for (int followee : following) {
             pq.addAll(tweets.get(followee));
+            
+            if (tmp == null)
+                tmp = new ArrayList<>();
+
+            pq.addAll(tmp);            
         }
 
         while (!pq.isEmpty() && counter < 10) {
