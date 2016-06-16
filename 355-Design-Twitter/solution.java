@@ -52,18 +52,18 @@ public class Twitter {
         Comparator<Tweet> comparitor = new Comparator<Tweet>() {
             @Override
             public int compare(Tweet o1, Tweet o2) {
-                return o2.order - o2.order;
+                return o2.order - o1.order;
             }
         };
         PriorityQueue<Tweet> pq = new PriorityQueue<>(comparitor);
 
         for (int followee : following) {
-            pq.addAll(tweets.get(followee));
-            
+            List<Tweet> tmp = tweets.get(followee);
+
             if (tmp == null)
                 tmp = new ArrayList<>();
 
-            pq.addAll(tmp);            
+            pq.addAll(tmp);          
         }
 
         while (!pq.isEmpty() && counter < 10) {
