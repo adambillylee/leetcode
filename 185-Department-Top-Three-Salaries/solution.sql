@@ -1,6 +1,8 @@
 # Write your MySQL query statement below
-select d.Name as Department, e.Name as Employee, s1.Salary as Salary
-from Employee s1
+select d.Name as Department, e1.Name as Employee, s1.Salary as Salary
+from Employee e1
+join Department d
+on e1.departmentId = d.Id
 where (select (count(distinct(Salary)))
         from Employee e2
         where e2.Salary > e2.Salary
