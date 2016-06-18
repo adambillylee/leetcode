@@ -28,7 +28,7 @@ public class Solution {
         if (i<0 || j<0)
             return;
             
-        if (i>m || j>n)
+        if (i>=m || j>=n)
             return;
             
         if (grid[i][j] == '2' || grid[i][j] == '0')
