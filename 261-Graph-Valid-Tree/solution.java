@@ -1,9 +1,6 @@
 public class Solution {
     public boolean validTree(int n, int[][] edges) {
-        if (edges == null)
-            return n == 1;
-        
-        if (edges.length == 0 || edges[0].length == 0)
+        if (edges == null || edges.length == 0 || edges[0].length == 0)
             return n==1;
 
         Map<Integer, Set<Integer>> graph = new HashMap<>();
