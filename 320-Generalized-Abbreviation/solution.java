@@ -17,13 +17,13 @@ public class Solution {
             
         int len = sb.length();
         
-        for (int i=index; i<word.length; i++) {
+        for (int i=index; i<word.length(); i++) {
             if (i == index) {
                 helper(rst, word, i+1, sb.append(word.charAt(i)), false);
                 sb.setLength(len);
             }
             
-            if (preNum = false) {
+            if (!preNum) {
                 helper(rst, word, i+1, sb.append(getNumber(i, index)), true);
                 sb.setLength(len);
             }
