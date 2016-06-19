@@ -1,7 +1,9 @@
 public class Solution {
     public List<Integer> findMinHeightTrees(int n, int[][] edges) {
-        if (edges.length == 0 || edges == null) {
-            return new ArrayList<>().add(0);
+        if (edges.length == 0) {
+            List<Integer> rst = new ArrayList<>();
+            rst.add(0);
+            return rst;
         }
         
         Map<Integer, Set<Integer>> graph = new HashMap<>();
@@ -16,6 +18,10 @@ public class Solution {
 
             addToMap(graph, first, second);
             addToMap(graph, second, first);
+        }
+        
+        if (graph.size() == 2) {
+            rst.addAll(graph.keySet());
         }
 
         Queue<Integer> leaf = new LinkedList<>();
