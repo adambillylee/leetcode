@@ -1,11 +1,12 @@
 public class Solution {
     public List<Integer> findMinHeightTrees(int n, int[][] edges) {
+        List<Integer> rst = new ArrayList<>();
+
         if (edges.length == 0) {
-            List<Integer> rst = new ArrayList<>();
             rst.add(0);
             return rst;
         }
-        
+
         Map<Integer, Set<Integer>> graph = new HashMap<>();
         int degree[] = new int[n];
 
@@ -19,7 +20,7 @@ public class Solution {
             addToMap(graph, first, second);
             addToMap(graph, second, first);
         }
-        
+
         if (graph.size() == 2) {
             rst.addAll(graph.keySet());
         }
@@ -31,26 +32,38 @@ public class Solution {
         }
 
         while (!leaf.isEmpty()) {
-            int curr = leaf.poll();
+            int len = leaf.size();
+            Queue<Integer> next = new LinkedList<>();
 
-            removeLeaf(curr, graph, degree);
+            for (int i = 0; i < len; i++) {
+                int curr = leaf.poll();
+
+                next.addAll(removeLeaf(curr, graph, degree));
+            }
+
+            if (graph.size() > 2)
+                leaf = next;
         }
 
-        List<Integer> rst = new ArrayList<>();
         rst.addAll(graph.keySet());
-
         return rst;
     }
 
-    private void removeLeaf(int curr, Map<Integer, Set<Integer>> graph, int[] degree) {
+    private Queue<Integer> removeLeaf(int curr, Map<Integer, Set<Integer>> graph, int[] degree) {
         Set<Integer> tos = graph.get(curr);
+        Queue<Integer> next = new LinkedList<>();
 
         for (int to : tos) {
             graph.get(to).remove(curr);
             degree[to]--;
+
+            if (degree[to] == 1)
+                next.add(to);
         }
 
         graph.remove(curr);
+
+        return next;
     }
 
     private void addToMap(Map<Integer, Set<Integer>> map, int i, int j) {
