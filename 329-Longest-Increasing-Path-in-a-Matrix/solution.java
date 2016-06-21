@@ -20,7 +20,7 @@ public class Solution {
 
         while (remaining > 0) {
             List<Pair> remove = new ArrayList<>();
-            System.out.format("round %d\n", rst);
+            // System.out.format("round %d\n", rst);
 
             for (int i = 0; i < matrix.length; i++) {
                 for (int j = 0; j < matrix[0].length; j++) {
@@ -38,13 +38,13 @@ public class Solution {
             }
 
             for (Pair pair : remove) {
-                System.out.format("remove matrix[%d][%d] : %d\n", pair.i, pair.j, matrix[pair.i][pair.j]);
+                // System.out.format("remove matrix[%d][%d] : %d\n", pair.i, pair.j, matrix[pair.i][pair.j]);
                 matrix[pair.i][pair.j] = Integer.MIN_VALUE;
                 remaining--;
             }
 
             rst++;
-            System.out.println();
+            // System.out.println();
         }
 
         return rst;
