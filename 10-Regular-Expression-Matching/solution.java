@@ -1,56 +1,35 @@
 public class Solution {
-    class Pair {
-        int indS;
-        int indP;
-
-        Pair (int indS, int indP) {
-            this.indS = indS;
-            this.indP = indP;
-        }
-    }
-
     public boolean isMatch(String s, String p) {
-        Map<Pair, Boolean> map = new HashMap<>();
-
-        return helper(p, s, map);
+        return helper(p, s);
     }
 
-    private boolean helper(String p, String s, Map<Pair, Boolean> map) {
-        Pair curr = new Pair(s.length(), p.length());
-
-        if (map.containsKey(curr))
-            return map.get(curr);
+    private boolean helper(String p, String s) {
 
         if (p.isEmpty() && s.isEmpty()) {
-            map.put(curr, true);
             return true;
         }
 
-        if (p.length() == 2 && p.charAt(1) == '*' && s.isEmpty()) {
-            map.put(curr, true);
-            return true;
+        if (p.length() >= 2 && p.charAt(1) == '*' && s.isEmpty()) {
+            return helper(p.substring(2), s);
         }
 
         if (p.isEmpty()) {
-            map.put(curr, false);
             return false;
         }
 
         if (s.isEmpty()) {
-            map.put(curr, false);
             return false;
         }
 
         boolean rst = false;
         if (p.length() >= 2 && p.charAt(1) == '*') {
-            String pHead = p.substring(0,1);
             String remaining = p.substring(2);
 
-            if (helper(remaining, s, map))
+            if (helper(remaining, s))
                 rst = true;
             else {
-                while (!s.isEmpty() && (s.startsWith(pHead) || p.charAt(0) == '.')) {
-                    rst = helper(remaining, s.substring(1), map);
+                while (!s.isEmpty() && (s.charAt(0) == p.charAt(0) || p.charAt(0) == '.')) {
+                    rst = helper(remaining, s.substring(1));
 
                     if (rst)
                         break;
@@ -60,12 +39,11 @@ public class Solution {
             }
         } else {
             if (p.charAt(0) == s.charAt(0) || p.charAt(0) == '.')
-                rst = helper(p.substring(1), s.substring(1), map);
+                rst = helper(p.substring(1), s.substring(1));
             else
                 rst = false;
         }
 
-        map.put(curr, rst);
         return rst;
     }
 }
