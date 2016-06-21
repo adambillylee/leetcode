@@ -1,52 +1,50 @@
 public class Solution {
-    public int longestIncreasingPath(int[][] matrix) {
-        class Pair {
-            int i;
-            int j;
+    int max = 0;
+    int m = 0;
+    int n = 0;
 
-            Pair(int i, int j) {
-                this.i = i;
-                this.j = j;
-            }
-        }
-        if (matrix == null || matrix.length == 0 || matrix[0].length == 0)
+    public int longestIncreasingPath(int[][] matrix) {
+        if (matrix == null | matrix.length == 0 || matrix[0].length == 0)
             return 0;
 
-        int M = matrix.length;
-        int N = matrix[0].length;
-        int remaining = M * N;
-        int rst = 0;
+        m = matrix.length;
+        n = matrix[0].length;
 
+        int path[][] = new int[m][n];
 
-        while (remaining > 0) {
-            List<Pair> remove = new ArrayList<>();
-            // System.out.format("round %d\n", rst);
-
-            for (int i = 0; i < matrix.length; i++) {
-                for (int j = 0; j < matrix[0].length; j++) {
-                    if (matrix[i][j] == Integer.MIN_VALUE)
-                        continue;
-
-                    boolean greaterThanTop = (i == 0 || matrix[i][j] >= matrix[i - 1][j]);
-                    boolean greaterThanBottom = (i == M - 1 || matrix[i][j] >= matrix[i + 1][j]);
-                    boolean greaterThanLeft = (j == 0 || matrix[i][j] >= matrix[i][j - 1]);
-                    boolean greaterThanRight = (j == N - 1 || matrix[i][j] >= matrix[i][j + 1]);
-
-                    if (greaterThanTop && greaterThanBottom && greaterThanLeft && greaterThanRight)
-                        remove.add(new Pair(i, j));
-                }
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                helper(matrix, path, i, j, Integer.MIN_VALUE);
+                max = Math.max(path[i][j], max);
             }
-
-            for (Pair pair : remove) {
-                // System.out.format("remove matrix[%d][%d] : %d\n", pair.i, pair.j, matrix[pair.i][pair.j]);
-                matrix[pair.i][pair.j] = Integer.MIN_VALUE;
-                remaining--;
-            }
-
-            rst++;
-            // System.out.println();
         }
+        return max;
+    }
 
-        return rst;
+    private int helper(int[][] matrix, int[][] path, int i, int j, int prev) {
+        if (i < 0 || j < 0)
+            return 0;
+
+        if (i >= m || j >= n)
+            return 0;
+
+        if (matrix[i][j] <= prev)
+            return 0;
+
+        if (path[i][j] > 0)
+            return path[i][j];
+
+        path[i][j] = 1;
+
+        int up = helper(matrix, path, i - 1, j, matrix[i][j]);
+        int down = helper(matrix, path, i + 1, j, matrix[i][j]);
+        int left = helper(matrix, path, i, j - 1, matrix[i][j]);
+        int right = helper(matrix, path, i, j + 1, matrix[i][j]);
+
+        int maxUD = Math.max(up, down);
+        int maxLR = Math.max(left, right);
+        path[i][j] += Math.max(maxUD, maxLR);
+
+        return path[i][j];
     }
 }
