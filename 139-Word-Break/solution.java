@@ -10,7 +10,7 @@ public class Solution {
         dp[0] = true;
 
         for (int i = 1; i <= s.length(); i++) {
-            for (int j = 0; j < i; j++) {
+            for (int j = i - 1; j >= 0; j--) {
                 if (dp[j]) {
                     String curr = s.substring(j, i);
 
