@@ -5,11 +5,11 @@ public class Solution {
         if (s == null || wordDict == null || wordDict.size() == 0)
             return rst;
 
-        List<List<String>> dp = new ArrayList<>();
+        List<List<StringBuilder>> dp = new ArrayList<>();
         for (int i = 0; i <= s.length(); i++)
             dp.add(new ArrayList<>());
 
-        dp.get(0).add("");
+        dp.get(0).add(new StringBuilder());
 
         for (int i = 1; i <= s.length(); i++) {
             for (int j = 0; j < i; j++) {
@@ -17,15 +17,18 @@ public class Solution {
                     String curr = s.substring(j, i);
 
                     if (wordDict.contains(curr)) {
-                        for (String prefix : dp.get(j)) {
-                            String tmp = prefix + " " + curr;
-                            dp.get(i).add(tmp.trim());
+                        for (StringBuilder prefix : dp.get(j)) {
+                            StringBuilder tmp = new StringBuilder(prefix).append(" ").append(curr);
+                            dp.get(i).add(tmp);
+
+                            if (i == s.length())
+                                rst.add(tmp.toString().trim());
                         }
                     }
                 }
             }
         }
 
-        return dp.get(s.length());
+        return rst;
     }
 }
