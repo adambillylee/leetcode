@@ -19,7 +19,7 @@ public class Solution {
         Pair curr = new Pair(s.length(), p.length());
 
         if (map.containsKey(curr))
-            return map.get(p);
+            return map.get(curr);
 
         if (p.isEmpty() && s.isEmpty()) {
             map.put(curr, true);
