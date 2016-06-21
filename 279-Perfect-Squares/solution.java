@@ -1,34 +1,29 @@
+/**
+ * Created by adamli on 6/21/16.
+ */
 public class Solution {
     public int numSquares(int n) {
-        if (n < 1)
-            return 0;
+        if (n <= 0)
+            return n;
 
-        // largest sqr which its square <= n
-        int sqr[] = new int[n + 1];
+        int sqr = 1;
 
-        // min number of perfect square adds up to n
-        int min[] = new int[n + 1];
+        int numSquare[] = new int[n + 1];
+        numSquare[0] = 0;
+        numSquare[1] = 1;
 
-        sqr[0] = 0;
         for (int i = 1; i <= n; i++) {
-            int nextSq = (sqr[i - 1] + 1) * (sqr[i - 1] + 1);
-
-            if (nextSq > i) {
-                sqr[i] = sqr[i - 1];
-                min[i] = i;
-
-                for (int j = 1; j * j < i; j++) {
-                    int tmp = min[i - j * j] + 1;
-
-                    if (tmp < min[i])
-                        min[i] = tmp;
-                }
+            if ((sqr + 1) * (sqr + 1) == i) {
+                numSquare[i] = 1;
+                sqr++;
             } else {
-                sqr[i] = sqr[i - 1] + 1;
-                min[i] = 1;
+                numSquare[i] = i;
+                for (int j = sqr; j >= 1; j--) {
+                    numSquare[i] = Math.min(numSquare[i], 1 + numSquare[i - j * j]);
+                }
             }
         }
 
-        return min[n];
+        return numSquare[n];
     }
 }
