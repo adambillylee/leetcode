@@ -5,30 +5,38 @@ public class Solution {
         if (s == null || wordDict == null || wordDict.size() == 0)
             return rst;
 
-        List<List<StringBuilder>> dp = new ArrayList<>();
-        for (int i = 0; i <= s.length(); i++)
-            dp.add(new ArrayList<>());
+        Map<String, List<String>> dp = new HashMap<>();
 
-        dp.get(0).add(new StringBuilder());
+        return dfs(s, wordDict, dp);
+    }
 
-        for (int i = 1; i <= s.length(); i++) {
-            for (int j = 0; j < i; j++) {
-                if (!dp.get(j).isEmpty()) {
-                    String curr = s.substring(j, i);
+    private List<String> dfs(String s, Set<String> wordDict, Map<String, List<String>> dp) {
+        if (dp.containsKey(s))
+            return dp.get(s);
 
-                    if (wordDict.contains(curr)) {
-                        for (StringBuilder prefix : dp.get(j)) {
-                            StringBuilder tmp = new StringBuilder(prefix).append(" ").append(curr);
-                            dp.get(i).add(tmp);
+        if (s.isEmpty()) {
+            List<String> rst = new ArrayList<>();
+            rst.add("");
+            return rst;
+        }
 
-                            if (i == s.length())
-                                rst.add(tmp.toString().trim());
-                        }
+        dp.put(s, new ArrayList<>());
+        for (int i = 0; i <= s.length(); i++) {
+            String curr = s.substring(i, s.length());
+
+            if (wordDict.contains(curr)) {
+                List<String> tmp = dfs(s.substring(0, i), wordDict, dp);
+
+                for (String component : tmp) {
+                    if (!component.isEmpty()) {
+                        dp.get(s).add(component + " " + curr);
+                    }else{
+                        dp.get(s).add(curr);
                     }
                 }
             }
         }
 
-        return rst;
+        return dp.get(s);
     }
 }
