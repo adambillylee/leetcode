@@ -1,6 +1,7 @@
 public class Solution {
     int jumps[][];
     int rst = 0;
+    int start = 0;
 
     public int numberOfPatterns(int m, int n) {
         jumps = new int[10][10];
@@ -12,14 +13,24 @@ public class Solution {
         jumps[3][9] = jumps[9][3] = 6;
         jumps[1][9] = jumps[9][1] = jumps[3][7] = jumps[7][3] = 5;
 
-        helper(0, m, n, 0, new HashSet<>());
+        start = 1;
+        helper(1, m, n, 1, new HashSet<>());
+
+        start = 2;
+        helper(2, m, n, 1, new HashSet<>());
+
+        start = 5;
+        helper(5, m, n, 1, new HashSet<>());
 
         return rst;
     }
 
     private void helper(int curr, int m, int n, int length, Set<Integer> visited) {
         if (length >= m && length <= n) {
-            rst++;
+            if (start == 5)
+                rst++;
+            else
+                rst += 4;
         }
 
         if (length == n) {
