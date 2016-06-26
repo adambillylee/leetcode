@@ -1,23 +1,23 @@
 public class Solution {
     public int maxProfit(int[] prices) {
-        if (prices.length < 2 || prices == null)
+        if (prices == null || prices.length < 2)
             return 0;
 
-        // for first state (prices[0])
-        int rest = 0;
         int buy = -prices[0];
-        int sell = 0;
+        int rest = 0;
+        int sell = prices[1] - prices[0];
 
-        for (int i = 1; i < prices.length; i++) {
-            int last_rest = rest;
-            rest = Math.max(last_rest, sell);
-            
-            int last_buy = buy;
-            buy = Math.max(last_rest - prices[i], buy);
-            
-            sell = last_buy + prices[i];
+        for (int i = 0; i < prices.length; i++) {
+            int tmp = buy;
+            buy = Math.max(buy, rest - prices[i]);
+
+            if (i >= 2)
+                rest = Math.max(sell, rest);
+
+            if (i >= 1)
+                sell = tmp + prices[i];
         }
 
-        return Math.max(sell, rest);
+        return Math.max(rest, sell);
     }
 }
