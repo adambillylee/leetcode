@@ -5,16 +5,16 @@ public class Solution {
 
         int buy = -prices[0];
         int rest = 0;
-        int sell = prices[1] - prices[0];
+        int sell = 0;
 
-        for (int i = 0; i < prices.length; i++) {
+        for (int i = 1; i < prices.length; i++) {
             int tmp = buy;
             buy = Math.max(buy, rest - prices[i]);
 
-            if (i >= 2)
+            // if (i >= 2)
                 rest = Math.max(sell, rest);
 
-            if (i >= 1)
+            // if (i >= 1)
                 sell = tmp + prices[i];
         }
 
