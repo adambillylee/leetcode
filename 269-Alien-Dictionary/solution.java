@@ -2,7 +2,7 @@ public class Solution {
     private boolean to[][] = new boolean[26][26];
     private int outDegree[] = new int[26];
     private Set<Character> alphabets = new HashSet<>();
-    private Set<Character> visited = new HashSet<>();
+    // private Set<Character> visited = new HashSet<>();
 
     public String alienOrder(String[] words) {
         if (words == null || words.length == 0)
@@ -68,11 +68,11 @@ public class Solution {
 
                 if (!to[c1 - 'a'][c2 - 'a']) {
                     outDegree[c1 - 'a']++;
-                    visited.add(c2);
+                    // visited.add(c2);
                 }
 
                 to[c1 - 'a'][c2 - 'a'] = true;
-                System.out.println("from " + c1 + " to " + c2);
+                // System.out.println("from " + c1 + " to " + c2);
 
                 break;
             }
