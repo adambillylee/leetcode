@@ -1,26 +1,34 @@
 public class Solution {
-    Stack<Integer> stack = new Stack();
+Stack<Integer> stack = new Stack();
+    int total = 0;
 
     public int trap(int[] height) {
         if (height == null || height.length == 0)
             return 0;
 
         int i = 0;
-        int maxBotWater, max = 0;
         while (i < height.length) {
-            int currHeight = height[i];
+            clearStack(i, height);
 
-            if (stack.isEmpty() || height[stack.peek()] >= currHeight) {
-                stack.push(i);
-                i++;
-            } else {
-                int bot = stack.pop();
-                maxBotWater = stack.isEmpty() ? 0
-                        : ((Math.min(height[stack.peek()], height[i]) - height[bot]) * (i - stack.peek() - 1));
-                max += maxBotWater;
-            }
+            stack.push(i++);
         }
 
-        return max;
+        return total;
+    }
+
+    private void clearStack(int rightInd, int[] height) {
+        while (!stack.isEmpty() && height[stack.peek()] < height[rightInd]) {
+            int bot = height[stack.pop()];
+
+            if (stack.isEmpty())
+                break;
+
+            int leftInd = stack.peek();
+
+            int depth = Math.min(height[leftInd], height[rightInd]) - bot;
+            int width = rightInd - leftInd - 1;
+
+            total += depth * width;
+        }
     }
 }
