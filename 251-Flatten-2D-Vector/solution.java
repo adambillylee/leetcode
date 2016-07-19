@@ -11,7 +11,6 @@ public class Vector2D implements Iterator<Integer> {
     @Override
     public Integer next() {
         int rst = stack.pop().get(0);
-        System.out.println(rst);
         return rst;
     }
 
