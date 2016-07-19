@@ -1,0 +1,52 @@
+public class Vector2D implements Iterator<Integer> {
+    Deque<List<Integer>> stack = new ArrayDeque<>();
+    int index;
+    List<List<Integer>> vec2d;
+    
+    public Vector2D(List<List<Integer>> vec2d) {
+        this.vec2d = vec2d;
+        this.index = 0;
+    }
+
+    @Override
+    public Integer next() {
+        int rst = stack.pop().get(0);
+        System.out.println(rst);
+        return rst;
+    }
+
+    @Override
+    public boolean hasNext() {
+        clearStack();
+        
+        if (!stack.isEmpty()) {
+            return true;
+        }else if (index < vec2d.size()){
+            stack.push(vec2d.get(index++));
+            return hasNext();
+        }else{
+            return false;
+        }
+    }
+    
+    public void clearStack() {
+        while(!stack.isEmpty() && stack.peek().size() != 1) {
+            List<Integer> tmp = stack.pop();
+            
+            if (tmp.isEmpty())
+                continue;
+            
+            for (int i=tmp.size()-1; i>=0; i--) {
+                List<Integer> newList = new ArrayList();
+                newList.add(tmp.get(i));
+                stack.push(newList);
+            }
+        }
+    }
+}
+
+/**
+ * Your Vector2D object will be instantiated and called as such:
+ * Vector2D i = new Vector2D(vec2d);
+ * while (i.hasNext()) v[f()] = i.next();
+ */
