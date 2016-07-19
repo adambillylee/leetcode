@@ -11,6 +11,11 @@ public class Solution {
             int x = find(from, father);
             int y = find(to, father);
             
+            /**
+             * bug point:
+             * stop when x == y since we don't wanna point father of anything to itself
+             * when i is father, its father should be -1
+             */
             if (x == y)
                 continue;
             else
