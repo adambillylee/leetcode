@@ -13,8 +13,8 @@ public class Solution {
             
             if (x == y)
                 continue;
-            
-            father[x] = y;
+            else
+                father[x] = y;
         }
         
         int count = 0;
