@@ -18,13 +18,13 @@ public class Vector2D implements Iterator<Integer> {
     public boolean hasNext() {
         clearStack();
         
-        if (!stack.isEmpty()) {
+        if (stack.isEmpty() && index == vec2d.size()) {
+            return false;
+        }else if (!stack.isEmpty()){
             return true;
-        }else if (index < vec2d.size()){
+        }else{
             stack.push(vec2d.get(index++));
             return hasNext();
-        }else{
-            return false;
         }
     }
     
