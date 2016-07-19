@@ -9,38 +9,29 @@
  */
 public class Solution {
     public List<Interval> insert(List<Interval> intervals, Interval newInterval) {
-        List<Interval> rst = new ArrayList<>();
+        List<Interval> rst = new ArrayList();
+        int i = 0;
+        // before merge
+        while (i < intervals.size() && intervals.get(i).end < newInterval.start) {
+            rst.add(intervals.get(i));
+            i++;
+        }
         
-        if (intervals.size() == 0) {
-            rst.add(newInterval);
-            return rst;
+        // during merge
+        Interval merged = newInterval;
+        while (i < intervals.size() && intervals.get(i).start <= newInterval.end) {
+            merged.start = Math.min(intervals.get(i).start, merged.start);
+            merged.end = Math.max(intervals.get(i).end, newInterval.end);
+            i++;
         }
-
-        // before newInterval
-        int curr = 0;
-        while (curr < intervals.size() && intervals.get(curr).end < newInterval.start) {
-            rst.add(intervals.get(curr));
-            curr++;
+        rst.add(merged);
+        
+        // after merger
+        while (i < intervals.size()) {
+            rst.add(intervals.get(i));
+            i++;
         }
-
-        // merge new intervel
-        int start = newInterval.start;
-        int end = newInterval.end;
-        while (curr < intervals.size() && intervals.get(curr).start <= newInterval.end) {
-            start = Math.min(start, intervals.get(curr).start);
-            end = Math.max(end, intervals.get(curr).end);
-            curr++;
-        }
-
-        Interval tmp = new Interval(start, end);
-        rst.add(tmp);
-
-        // add the rest
-        while (curr < intervals.size()) {
-            rst.add(intervals.get(curr));
-            curr++;
-        }
-
+        
         return rst;
     }
 }
