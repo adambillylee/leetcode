@@ -1,105 +1,101 @@
-class LRUNode {
-    int key;
-    int value;
-    LRUNode newer;
-    LRUNode older;
-
-    LRUNode(int key, int value) {
-        this.key = key;
-        this.value = value;
-    }
-}
-
 public class LRUCache {
+    class LRUNode {
+        int key;
+        int value;
+        LRUNode older;
+        LRUNode newer;
+
+        public LRUNode(int key, int value) {
+            this.key = key;
+            this.value = value;
+        }
+
+        @Override
+        public String toString() {
+            return key + " : " + value;
+        }
+    }
+
     int capacity;
+    int size;
     LRUNode latest;
     LRUNode oldest;
-    int currSize;
     Map<Integer, LRUNode> map;
 
     public LRUCache(int capacity) {
         this.capacity = capacity;
-        oldest = null;
+        this.size = 0;
         latest = null;
-        currSize = 0;
+        oldest = null;
         map = new HashMap<>();
     }
 
     public int get(int key) {
-        if (map.get(key) == null)
+        if (size == 0) {
+            System.out.println("Cache is Empty");
             return -1;
+        }
 
-        // refresh node for key to latest
-        LRUNode tmp = map.get(key);
-        int value = tmp.value;
-        deleteNode(key);
-        appendNode(key, value);
-
-        return map.get(key).value;
+        if (map.containsKey(key)) {
+            int value = map.get(key).value;
+            del(key);
+            append(key, value);
+            return value;
+        } else {
+            return -1;
+        }
     }
 
     public void set(int key, int value) {
-        // if key already exist, refresh it to latest
-        if (map.get(key) != null) {
-            // delete and append
-            deleteNode(key);
-            appendNode(key, value);
+        if (map.containsKey(key)) {
+            del(key);
+            append(key, value);
         } else {
-            // if this is a new key
-            if (currSize < capacity) {
-                // if cache is not full, append it directly
-                appendNode(key, value);
-            } else {
-                // if cache is full, delete the latest and add the latest
+            if (size == capacity) {
                 int oldestKey = oldest.key;
-                deleteNode(oldestKey);
-                appendNode(key, value);
+                del(oldestKey);
+                append(key,value);
+            }else{
+                append(key,value);
             }
         }
     }
 
-    private void appendNode(int key, int value) {
-        LRUNode tmp = new LRUNode(key, value);
+    private void append(int key, int value) {
+        LRUNode newNode = new LRUNode(key, value);
 
-        // if cache is empty, this new nodes is both latest and oldest
-        if (currSize == 0) {
-            oldest = tmp;
-            latest = tmp;
+        if (size == 0) {
+            latest = newNode;
+            oldest = newNode;
         } else {
-            // if this node is new, add it as latest
-            tmp.older = latest;
-            latest.newer = tmp;
-            latest = tmp;
+            newNode.older = latest;
+            latest.newer = newNode;
+            latest = newNode;
         }
 
-        // add into map and update size count
-        map.put(key, tmp);
-        currSize++;
+        map.put(key, newNode);
+        size++;
     }
 
-    private void deleteNode(int key) {
-        LRUNode toDelete = map.get(key);
+    private void del(int key) {
+        LRUNode curr = map.get(key);
 
-        // fix link on newer side
-        if (toDelete.newer != null) {
-            toDelete.newer.older = toDelete.older;
-        }
+        if (curr == null)
+            return;
 
-        // fix link on older side
-        if (toDelete.older != null) {
-            toDelete.older.newer = toDelete.newer;
-        }
+        if (curr == latest)
+            latest = latest.older;
 
-        // fix case when its oldest
-        if (toDelete == oldest)
-            oldest = toDelete.newer;
+        if (curr == oldest)
+            oldest = oldest.newer;
 
-        // fix case when its latest
-        if (toDelete == latest)
-            latest = toDelete.older;
+        if (curr.newer != null)
+            curr.newer.older = curr.older;
 
-        // remove from map and update size
+        if (curr.older != null)
+            curr.older.newer = curr.newer;
+
         map.remove(key);
-        currSize--;
+        size--;
     }
 }
