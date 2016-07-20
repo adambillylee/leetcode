@@ -30,6 +30,5 @@ public class Solution {
         
         dfs(rst, root.left, path);
         dfs(rst, root.right, path);
-        // path = path.substring(0, path.length()-1);
     }
 }
