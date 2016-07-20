@@ -47,18 +47,13 @@ public class LRUCache {
     }
 
     public void set(int key, int value) {
-        if (map.containsKey(key)) {
-            del(key);
-            append(key, value);
-        } else {
-            if (size == capacity) {
-                int oldestKey = oldest.key;
-                del(oldestKey);
-                append(key,value);
-            }else{
-                append(key,value);
-            }
+        del(key);
+        if (size == capacity) {
+            int oldestKey = oldest.key;
+            del(oldestKey);
         }
+
+        append(key,value);
     }
 
     private void append(int key, int value) {
