@@ -10,25 +10,30 @@
 public class Solution {
     public List<String> binaryTreePaths(TreeNode root) {
         List<String> rst = new ArrayList<>();
-        dfs(rst, root, "");
+        StringBuilder sb = new StringBuilder();
+        dfs(rst, root, sb);
         return rst;
     }
     
-    void dfs(List<String>rst, TreeNode root, String path) {
+    void dfs(List<String>rst, TreeNode root, StringBuilder sb) {
         if (root == null) {
             return;
         }
         
-        path = path + root.val;
+        int len = sb.length();
+        sb.append(root.val);
         
         if (root.left == null && root.right == null) {
-            rst.add(new String(path));
+            rst.add(sb.toString());
         }
         
-        if (path.length() >= 1)
-            path += "->";
+        if (sb.length() >= 1) {
+            sb.append("->");
+        }
         
-        dfs(rst, root.left, path);
-        dfs(rst, root.right, path);
+        dfs(rst, root.left, sb);
+        dfs(rst, root.right, sb);
+        sb.setLength(len);
+        
     }
 }
