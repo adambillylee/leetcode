@@ -5,6 +5,7 @@ public class Solution {
         if (numRows == 0)
             return rst;
 
+        // add the peak to kick off the loop
         rst.add(new ArrayList<>());
         rst.get(0).add(1);
 
@@ -19,11 +20,13 @@ public class Solution {
     }
 
     private int getNum(int i, int j, List<List<Integer>> rst) {
-        int len = rst.get(i - 1).size();
+        if (i == j || j == 0)
+            return 1;
 
-        int left = j - 1 >= 0 ? rst.get(i - 1).get(j - 1) : 0;
-        int right = j < len ? rst.get(i - 1).get(j) : 0;
+        // number on top left + number on top
+        int topLeft =  rst.get(i - 1).get(j - 1);
+        int top = rst.get(i - 1).get(j);
 
-        return left + right;
+        return topLeft + top;
     }
 }
