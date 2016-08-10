@@ -30,7 +30,7 @@ public class Solution {
     }
 
     private void addAlphabet(String word) {
-        for (int i = 0; i <= word.length() - 1; i++) {
+        for (int i = 0; i < word.length(); i++) {
             char curr = word.charAt(i);
 
             alphabets.add(curr);
@@ -38,14 +38,13 @@ public class Solution {
     }
 
     private void addAlphabetPair(String curr, String next) {
+        // take the shortest of curr and next
         int len = Math.min(curr.length(), next.length());
 
         int index = 0;
         while (index < len) {
             char c1 = curr.charAt(index);
             char c2 = next.charAt(index);
-            alphabets.add(c1);
-            alphabets.add(c2);
 
             if (c1 == c2) {
                 index++;
@@ -54,7 +53,7 @@ public class Solution {
                     outDegree[c1 - 'a']++;
                     to[c1 - 'a'][c2 - 'a'] = true;
                 }
-                
+
                 break;
             }
         }
@@ -109,7 +108,6 @@ public class Solution {
 
             if (outDegree[curr - 'a'] == 0) {
                 rst.add(curr);
-//                System.out.println("add : " + curr);
             }
         }
         return rst;
