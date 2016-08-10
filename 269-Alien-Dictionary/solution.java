@@ -20,6 +20,7 @@ public class Solution {
             String next = words[i + 1];
 
             addNodeInword(curr);
+            addNodeInword(next);
 
             if (!addNodeAcrossWords(curr, next))
                 return false;
@@ -31,17 +32,10 @@ public class Solution {
     }
 
     private void addNodeInword(String word) {
-        for (int i = 0; i < word.length() - 1; i++) {
+        for (int i = 0; i <= word.length() - 1; i++) {
             char curr = word.charAt(i);
-            char next = word.charAt(i + 1);
 
             alphabets.add(curr);
-            alphabets.add(next);
-
-//            if (!to[curr - 'a'][next - 'a']) {
-//                to[curr - 'a'][next - 'a'] = true;
-//                outDegree[curr - 'a']++;
-//            }
         }
     }
 
