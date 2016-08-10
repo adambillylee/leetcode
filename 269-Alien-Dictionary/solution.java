@@ -21,8 +21,7 @@ public class Solution {
 
             addAlphabet(curr);
 
-            if (!addNodeAcrossWords(curr, next))
-                return false;
+            addNodeAcrossWords(curr, next);
         }
 
         addAlphabet(words[words.length - 1]);
@@ -38,7 +37,7 @@ public class Solution {
         }
     }
 
-    private boolean addNodeAcrossWords(String curr, String next) {
+    private void addNodeAcrossWords(String curr, String next) {
         int len = Math.min(curr.length(), next.length());
 
         int index = 0;
@@ -70,8 +69,6 @@ public class Solution {
                 break;
             }
         }
-
-        return true;
     }
 
     private String topoSort() {
