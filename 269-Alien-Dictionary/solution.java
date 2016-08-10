@@ -21,7 +21,7 @@ public class Solution {
 
             addAlphabet(curr);
 
-            addNodeAcrossWords(curr, next);
+            addAlphabetPair(curr, next);
         }
 
         addAlphabet(words[words.length - 1]);
@@ -37,7 +37,7 @@ public class Solution {
         }
     }
 
-    private void addNodeAcrossWords(String curr, String next) {
+    private void addAlphabetPair(String curr, String next) {
         int len = Math.min(curr.length(), next.length());
 
         int index = 0;
@@ -50,22 +50,11 @@ public class Solution {
             if (c1 == c2) {
                 index++;
             } else {
-                /**
-                 * HOW TO FIGURE OUT CYCLES?
-                 */
-                // if (visited.contains(c2)) {
-                //     System.out.println(c1 + " to " + c2 + " and " + c2 + " to " + c1);
-                //     return false;
-                // }
-
                 if (!to[c1 - 'a'][c2 - 'a']) {
                     outDegree[c1 - 'a']++;
-                    // visited.add(c2);
+                    to[c1 - 'a'][c2 - 'a'] = true;
                 }
-
-                to[c1 - 'a'][c2 - 'a'] = true;
-                // System.out.println("from " + c1 + " to " + c2);
-
+                
                 break;
             }
         }
@@ -98,13 +87,10 @@ public class Solution {
 
                 // remove path
                 to[before - 'a'][curr - 'a'] = false;
-//                System.out.println("remove " + before + " to " + curr);
                 outDegree[before - 'a']--;
-//                System.out.println("degree of " + before + " to " + outDegree[before - 'a']);
 
                 if (outDegree[before - 'a'] == 0) {
                     zeroOut.add(before);
-//                    System.out.println("add : " + before);
                 }
             }
         }
