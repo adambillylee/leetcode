@@ -19,19 +19,18 @@ public class Solution {
             String curr = words[i];
             String next = words[i + 1];
 
-            addNodeInword(curr);
-            addNodeInword(next);
+            addAlphabet(curr);
 
             if (!addNodeAcrossWords(curr, next))
                 return false;
         }
 
-        addNodeInword(words[words.length - 1]);
+        addAlphabet(words[words.length - 1]);
 
         return true;
     }
 
-    private void addNodeInword(String word) {
+    private void addAlphabet(String word) {
         for (int i = 0; i <= word.length() - 1; i++) {
             char curr = word.charAt(i);
 
