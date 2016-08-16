@@ -15,13 +15,13 @@ public class Solution {
 
         int count = 0;
 
-        while (count < M * N) {
+        while (true) {
             // upper
             if (cs <= ce) {
                 for (int i = cs; i <= ce; i++) {
                     // System.out.print(matrix[rs][i] + " ");
                     rst.add(matrix[rs][i]);
-                    count++;
+                    // count++;
                 }
                 rs++;
             }
@@ -34,7 +34,7 @@ public class Solution {
                 for (int i = rs; i <= re; i++) {
                     // System.out.print(matrix[i][ce] + " ");
                     rst.add(matrix[i][ce]);
-                    count++;
+                    // count++;
                 }
                 ce--;
             }
@@ -47,7 +47,7 @@ public class Solution {
                 for (int i = ce; i >= cs; i--) {
                     // System.out.print(matrix[re][i] + " ");
                     rst.add(matrix[re][i]);
-                    count++;
+                    // count++;
                 }
                 re--;
             }
@@ -60,7 +60,7 @@ public class Solution {
                 for (int i = re; i >= rs; i--) {
                     // System.out.print(matrix[i][cs] + " ");
                     rst.add(matrix[i][cs]);
-                    count++;
+                    // count++;
                 }
                 cs++;
             }
@@ -69,6 +69,6 @@ public class Solution {
                 return rst;
         }
         
-        return rst;
+        // return rst;
     }
 }
