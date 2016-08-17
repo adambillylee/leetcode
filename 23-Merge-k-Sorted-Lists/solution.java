@@ -22,11 +22,12 @@ public class Solution {
         }
 
         while (!heap.isEmpty()) {
-            curr.next = heap.poll();
+            ListNode min = heap.poll();
+            curr.next = min;
             curr = curr.next;
 
-            if (curr.next != null)
-                heap.offer(curr.next);
+            if (min.next != null)
+                heap.offer(min.next);
         }
 
         return dummy.next;
