@@ -11,18 +11,24 @@ public class Solution {
         if (lists == null || lists.length == 0)
             return null;
 
+        ListNode dummy = new ListNode(-1);
+        ListNode curr = dummy;
+
         PriorityQueue<ListNode> heap = new PriorityQueue<>((n1, n2)->(n1.val - n2.val));
 
-        ListNode head = new ListNode(0), tail = head;
-        for (ListNode node : lists) 
-            if (node != null) 
-                heap.offer(node);
-            
-        while (!heap.isEmpty()) {
-            tail.next = heap.poll();
-            tail = tail.next;
-            if (tail.next != null) heap.offer(tail.next);
+        for (ListNode tmp : lists) {
+            if (tmp != null)
+                heap.add(tmp);
         }
-        return head.next;
+
+        while (!heap.isEmpty()) {
+            curr.next = heap.poll();
+            curr = curr.next;
+
+            if (curr.next != null)
+                heap.offer(curr.next);
+        }
+
+        return dummy.next;
     }
 }
