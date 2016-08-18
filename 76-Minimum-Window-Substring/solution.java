@@ -11,6 +11,7 @@ public class Solution {
         int targetMap[] = new int[128];
         int currMap[] = new int[128];
         String min = "";
+        StringBuilder curr = new StringBuilder();
 
         for (char c : t.toCharArray()) {
             targetMap[c - 'A']++;
@@ -19,17 +20,20 @@ public class Solution {
         while (j < s.length()) {
             while (j < s.length() && !covers(currMap, targetMap)) {
                 currMap[s.charAt(j) - 'A']++;
+                curr.append(s.charAt(j));
                 j++;
 
                 if (covers(currMap, targetMap))
-                    min = update(min, s, i, j);
+                    min = update(min, curr);
             }
 
             while (i < j && covers(currMap, targetMap)) {
                 if (covers(currMap, targetMap))
-                    min = update(min, s, i, j-1);
+                    min = update(min, curr);
 
                 currMap[s.charAt(i) - 'A']--;
+                curr = curr.deleteCharAt(0);
+
                 i++;
             }
         }
@@ -37,13 +41,9 @@ public class Solution {
         return min;
     }
 
-    private String update(String min, String s, int i, int j) {
-        if (j > s.length() - 1)
-            j = s.length() - 1;
-
-        if (j - i + 1 < min.length() || min.isEmpty()) {
-            min = s.substring(i, j + 1);
-        }
+    private String update(String min, StringBuilder curr) {
+        if (curr.length() < min.length() || min.isEmpty())
+            min = curr.toString();
 
         return min;
     }
