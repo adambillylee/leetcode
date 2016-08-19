@@ -23,8 +23,8 @@ public class Solution {
                 curr.append(s.charAt(j));
                 j++;
 
-                if (covers(currMap, targetMap))
-                    min = update(min, curr);
+                // if (covers(currMap, targetMap))
+                //     min = update(min, curr);
             }
 
             while (i < j && covers(currMap, targetMap)) {
