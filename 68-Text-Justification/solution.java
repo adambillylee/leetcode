@@ -1,61 +1,91 @@
 public class Solution {
-private List<String> result;
-
-public List<String> fullJustify(String[] words, int maxWidth) {
-    result = new ArrayList<String>();
-    if (words == null || words.length == 0 || maxWidth < 0) return result;
-    if (maxWidth == 0) {
-        result.add("");
+    public List<String> fullJustify(String[] words, int maxWidth) {
+        List<String> result = new ArrayList<>();
+        if (words == null || words.length == 0 || maxWidth < 0) {
+            return result;
+        }
+         
+        if (maxWidth == 0) {
+            result.add("");
+            return result;
+        }
+         
+        fullJustifyHelper(0, words, result, maxWidth);
+         
         return result;
     }
-    helper(words, 0, maxWidth);
-    return result;
-}
-
-public void helper(String[] words, int start, int L) {
-    if (start >= words.length) return;
-    
-    int i = start, len = 0, total = 0, next = -1;
-    while (total < L && i < words.length) {
-        total += words[i].length();
-        if (total > L) { // only in this case we need skip i++
+     
+    private void fullJustifyHelper(int start, String[] words, 
+                  List<String> result, int L) {
+        if (start >= words.length) {
+            return;
+        }
+         
+        int total = 0;
+        int len = 0;
+        int next = -1;
+        int i = start;
+         
+        while (i < words.length && total < L) {
+            total += words[i].length();
+             
+            if (total > L) {
+                next = i;
+                break;
+            }
+             
+            len += words[i].length();
+            total++;
+            i++;
+        }
+         
+        if (next == -1) {
             next = i;
-            break;
         }
-        len += words[i].length();
-        total++; // count space
-        i++;
+         
+        addLists(words, start, next, result, len, L);
+         
+        fullJustifyHelper(next, words, result, L);
     }
-    
-    if (next == -1) next = i;
-    addList(words, start, next, len, L);
-    
-    helper(words, next, L);
-}
-
-public void addList(String[] words, int i, int j, int len, int L) {
-    StringBuilder sb = new StringBuilder("");
-    int count = j-i-1, space = 0, more = 0, s = 0;
-    if (count == 0 || j == words.length) { // the last line
-        for (int k = i; k < j; k++) {
-            sb.append(words[k]);
-            if (k == j-1) break;
-            sb.append(" ");
-        }
-        space = L - sb.length();
-        s = 0;
-        while (s++ < space) sb.append(" ");
-    } else {
-        space = (L - len) / count; more = (L - len) % count;
-        for (int k = i; k < j; k++) {
-            sb.append(words[k]);
-            s = 0;
-            if (k == j-1) break;
-            while (s++ < space) sb.append(" ");
-            if (more-- > 0) sb.append(" ");
+     
+    private void addLists(String[] words, int start, int next, 
+                          List<String> result, int len, int L) {
+        int slots = next - start - 1;
+        StringBuffer sb = new StringBuffer();
+        // Last line or only one word in a line
+        if (slots == 0 || next == words.length) {
+            for (int i = start; i < next; i++) {
+                sb.append(words[i]);
+                if (i == next - 1) {
+                    break;
+                }
+                sb.append(" ");
+            }
+             
+            int trailingSpace = L - len - slots;
+            for (int i = 0; i < trailingSpace; i++) {
+                sb.append(" ");
+            }
+             
+            result.add(sb.toString());
+        } else {
+            int aveSpace = (L - len) / slots;
+            int moreSpace = (L - len) % slots;
+            for (int i = start; i < next; i++) {
+                sb.append(words[i]);
+                if (i == next - 1) {
+                    break;
+                }
+                for (int j = 0; j < aveSpace; j++) {
+                    sb.append(" ");
+                }
+                 
+                if (moreSpace > 0) {
+                    sb.append(" ");
+                    moreSpace--;
+                }
+            }   
+            result.add(sb.toString());
         }
     }
-    
-    result.add(sb.toString());
-}
 }
