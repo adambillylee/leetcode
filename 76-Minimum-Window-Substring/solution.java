@@ -22,9 +22,6 @@ public class Solution {
                 currMap[s.charAt(j) - 'A']++;
                 curr.append(s.charAt(j));
                 j++;
-
-                // if (covers(currMap, targetMap))
-                //     min = update(min, curr);
             }
 
             while (i < j && covers(currMap, targetMap)) {
