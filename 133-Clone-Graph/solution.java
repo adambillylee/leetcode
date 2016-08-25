@@ -9,29 +9,31 @@
 public class Solution {
     public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
         if (node == null)
-            return null;
-
+            return node;
+        
         Queue<UndirectedGraphNode> queue = new LinkedList<>();
-        Map<UndirectedGraphNode, UndirectedGraphNode> visited = new HashMap<>();
         queue.offer(node);
+        Map<UndirectedGraphNode, UndirectedGraphNode> mapping = new HashMap<>();
+        
         UndirectedGraphNode head = new UndirectedGraphNode(node.label);
-        visited.put(node, head);
-
+        mapping.put(node, head);
+        
         while (!queue.isEmpty()) {
             UndirectedGraphNode curr = queue.poll();
-
+            
             for (UndirectedGraphNode neighbor : curr.neighbors) {
-                if (!visited.containsKey(neighbor)) {
+                if (!mapping.containsKey(neighbor)) {
                     queue.add(neighbor);
-
-                    UndirectedGraphNode tmp = new UndirectedGraphNode(neighbor.label);
-                    visited.put(neighbor, tmp);
+                    UndirectedGraphNode cloned = new UndirectedGraphNode(neighbor.label);
+                    mapping.put(neighbor, cloned);
                 }
-
-                visited.get(curr).neighbors.add(visited.get(neighbor));
+                
+                mapping.get(curr)
+                    .neighbors
+                    .add(mapping.get(neighbor));
             }
         }
-
-        return visited.get(node);
+        
+        return head;
     }
 }
