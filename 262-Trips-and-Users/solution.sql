@@ -1,4 +1,4 @@
-select t.Request_at as Day, round(( sum(if (status != 'Completed', 1, 0))/ count(t.Id)),2) as "Cancellation Rate"
+select t.Request_at as Day, round(( count(if (status != 'Completed', True, Null))/ count(t.Id)),2) as "Cancellation Rate"
     from Trips t
     left join Users u
     on t.Client_id = u.Users_Id
